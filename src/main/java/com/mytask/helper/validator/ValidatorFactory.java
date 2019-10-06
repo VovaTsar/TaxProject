@@ -18,8 +18,6 @@ public final class ValidatorFactory {
                 return new PhoneValidator();
             case "date":
                 return new DataValidator();
-            case "course":
-                return new CourseValidator();
         }
         throw new IllegalArgumentException();
     }

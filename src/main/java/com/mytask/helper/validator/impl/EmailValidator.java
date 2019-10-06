@@ -16,7 +16,7 @@ public final class EmailValidator implements Validate {
 
     @Override
     public boolean validate(final String hex) {
-        logger.info("Validate Student email ");
+        logger.info("Validate Customer email ");
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(hex);
         if (matcher.matches()) {

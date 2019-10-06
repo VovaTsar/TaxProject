@@ -1,48 +1,44 @@
 package com.mytask.domain;
 
-
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.Optional;
 
-public class Student implements Comparable<Student>, StudentPrototype {
+public class Customer implements Comparable<Customer>, CustomerPrototype {
     private final Long id;
     private final String name;
     private final String surname;
     private final LocalDate birthday;
     private final Address address;
-    private final Department department;
     private final String phoneNumber;
-    private final String group;
-    private final int course;
     private final String email;
     private final String password;
     private static Long counter = 0L;
 
 
-    private final Comparator<Student> Student_COMPARATOR_BY_AGE =
+    private final Comparator<Customer> Customer_COMPARATOR_BY_AGE =
             Comparator.comparingInt(student -> LocalDate.now().getYear() - student.birthday.getYear());
 
-    private final Comparator<Student> Student_COMPARATOR_BY_NAME =
+    private final Comparator<Customer> Customer_COMPARATOR_BY_NAME =
             Comparator.comparing(student -> student.name);
 
-    private final Comparator<Student> Student_COMPARATOR_BY_SURNAME =
+    private final Comparator<Customer> Customer_COMPARATOR_BY_SURNAME =
             Comparator.comparing(student -> student.surname);
 
 
-    public Comparator<Student> getStudentComparator() {
-        return Student_COMPARATOR_BY_NAME
-                .thenComparing(Student_COMPARATOR_BY_SURNAME
-                        .thenComparing(Student_COMPARATOR_BY_AGE));
+    public Comparator<Customer> getStudentComparator() {
+        return Customer_COMPARATOR_BY_NAME
+                .thenComparing(Customer_COMPARATOR_BY_SURNAME
+                        .thenComparing(Customer_COMPARATOR_BY_AGE));
     }
 
     @Override
-    public int compareTo(Student o) {
+    public int compareTo(Customer o) {
         return this.getStudentComparator().compare(this, o);
     }
 
-    private Student(Builder builder) {
+    private Customer(Builder builder) {
         if (builder.id == null) {
             this.id = ++counter;
         } else {
@@ -52,10 +48,7 @@ public class Student implements Comparable<Student>, StudentPrototype {
         this.surname = builder.surname;
         this.birthday = builder.birthday;
         this.address = builder.address;
-        this.department = builder.department;
         this.phoneNumber = builder.phoneNumber;
-        this.group = builder.group;
-        this.course = builder.course;
         this.email = builder.email;
         this.password = builder.password;
     }
@@ -84,21 +77,10 @@ public class Student implements Comparable<Student>, StudentPrototype {
         return address;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public String getGroup() {
-        return group;
-    }
-
-    public int getCourse() {
-        return course;
-    }
 
     public String getEmail() {
         return email;
@@ -110,16 +92,13 @@ public class Student implements Comparable<Student>, StudentPrototype {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "Customer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", birthday=" + birthday +
                 ", address=" + address +
-                ", department=" + department +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", group='" + group + '\'' +
-                ", course=" + course +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
@@ -127,52 +106,42 @@ public class Student implements Comparable<Student>, StudentPrototype {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()){
-            return false;
-        }
-        Student student = (Student) o;
-        return course == student.course &&
-                Objects.equals(id, student.id) &&
-                Objects.equals(name, student.name) &&
-                Objects.equals(surname, student.surname) &&
-                Objects.equals(birthday, student.birthday) &&
-                Objects.equals(address, student.address) &&
-                Objects.equals(department, student.department) &&
-                Objects.equals(phoneNumber, student.phoneNumber) &&
-                Objects.equals(group, student.group) &&
-                Objects.equals(email, student.email) &&
-                Objects.equals(password, student.password);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(id, customer.id) &&
+                Objects.equals(name, customer.name) &&
+                Objects.equals(surname, customer.surname) &&
+                Objects.equals(birthday, customer.birthday) &&
+                Objects.equals(address, customer.address) &&
+                Objects.equals(phoneNumber, customer.phoneNumber) &&
+                Objects.equals(email, customer.email) &&
+                Objects.equals(password, customer.password) &&
+                Objects.equals(Customer_COMPARATOR_BY_AGE, customer.Customer_COMPARATOR_BY_AGE) &&
+                Objects.equals(Customer_COMPARATOR_BY_NAME, customer.Customer_COMPARATOR_BY_NAME) &&
+                Objects.equals(Customer_COMPARATOR_BY_SURNAME, customer.Customer_COMPARATOR_BY_SURNAME);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, birthday, address, department, phoneNumber, group, course, email, password);
+        return Objects.hash(id, name, surname, birthday, address, phoneNumber, email, password);
     }
 
     @Override
-    public StudentPrototype clone(String newPassword) {
+    public CustomerPrototype clone(String newPassword) {
         Address address = (Address) Optional.ofNullable(this.address)
                 .map(Address::clone)
                 .orElse(null);
-        Department department = (Department) Optional.ofNullable(this.department)
-                .map(Department::clone)
-                .orElse(null);
 
-        return Student.builder()
+        return Customer.builder()
                 .withId(id)
                 .withName(name)
                 .withSurname(surname)
                 .withBirthday(birthday)
-                .withGroup(group)
                 .withPassword(newPassword)
                 .withAddress(address)
                 .withPhoneNumber(phoneNumber)
-                .withDepartment(department)
                 .withEmail(email)
-                .withCourse(course)
                 .build();
     }
 
@@ -182,10 +151,7 @@ public class Student implements Comparable<Student>, StudentPrototype {
         private String surname;
         private LocalDate birthday;
         private Address address;
-        private Department department;
         private String phoneNumber;
-        private int course;
-        private String group;
         private String email;
         private String password;
 
@@ -204,23 +170,13 @@ public class Student implements Comparable<Student>, StudentPrototype {
             return this;
         }
 
-        public Builder withGroup(String group) {
-            this.group = group;
-            return this;
-        }
-
-
-        public Builder withCourse(int course) {
-            this.course = course;
-            return this;
-        }
 
         private Builder() {
         }
 
 
-        public Student build() {
-            return new Student(this);
+        public Customer build() {
+            return new Customer(this);
         }
 
 
@@ -244,10 +200,6 @@ public class Student implements Comparable<Student>, StudentPrototype {
             return this;
         }
 
-        public Builder withDepartment(Department department) {
-            this.department = department;
-            return this;
-        }
 
         public Builder withPhoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
