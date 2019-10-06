@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.Objects;
 import java.util.Optional;
 
-public class Student implements Comparable<Student>, StudentPrototype {
+public class Customer implements Comparable<Customer>, CustomerPrototype {
     private final Long id;
     private final String name;
     private final String surname;
@@ -17,28 +17,28 @@ public class Student implements Comparable<Student>, StudentPrototype {
     private static Long counter = 0L;
 
 
-    private final Comparator<Student> Student_COMPARATOR_BY_AGE =
+    private final Comparator<Customer> Customer_COMPARATOR_BY_AGE =
             Comparator.comparingInt(student -> LocalDate.now().getYear() - student.birthday.getYear());
 
-    private final Comparator<Student> Student_COMPARATOR_BY_NAME =
+    private final Comparator<Customer> Customer_COMPARATOR_BY_NAME =
             Comparator.comparing(student -> student.name);
 
-    private final Comparator<Student> Student_COMPARATOR_BY_SURNAME =
+    private final Comparator<Customer> Customer_COMPARATOR_BY_SURNAME =
             Comparator.comparing(student -> student.surname);
 
 
-    public Comparator<Student> getStudentComparator() {
-        return Student_COMPARATOR_BY_NAME
-                .thenComparing(Student_COMPARATOR_BY_SURNAME
-                        .thenComparing(Student_COMPARATOR_BY_AGE));
+    public Comparator<Customer> getStudentComparator() {
+        return Customer_COMPARATOR_BY_NAME
+                .thenComparing(Customer_COMPARATOR_BY_SURNAME
+                        .thenComparing(Customer_COMPARATOR_BY_AGE));
     }
 
     @Override
-    public int compareTo(Student o) {
+    public int compareTo(Customer o) {
         return this.getStudentComparator().compare(this, o);
     }
 
-    private Student(Builder builder) {
+    private Customer(Builder builder) {
         if (builder.id == null) {
             this.id = ++counter;
         } else {
@@ -92,7 +92,7 @@ public class Student implements Comparable<Student>, StudentPrototype {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "Customer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
@@ -108,18 +108,18 @@ public class Student implements Comparable<Student>, StudentPrototype {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return Objects.equals(id, student.id) &&
-                Objects.equals(name, student.name) &&
-                Objects.equals(surname, student.surname) &&
-                Objects.equals(birthday, student.birthday) &&
-                Objects.equals(address, student.address) &&
-                Objects.equals(phoneNumber, student.phoneNumber) &&
-                Objects.equals(email, student.email) &&
-                Objects.equals(password, student.password) &&
-                Objects.equals(Student_COMPARATOR_BY_AGE, student.Student_COMPARATOR_BY_AGE) &&
-                Objects.equals(Student_COMPARATOR_BY_NAME, student.Student_COMPARATOR_BY_NAME) &&
-                Objects.equals(Student_COMPARATOR_BY_SURNAME, student.Student_COMPARATOR_BY_SURNAME);
+        Customer customer = (Customer) o;
+        return Objects.equals(id, customer.id) &&
+                Objects.equals(name, customer.name) &&
+                Objects.equals(surname, customer.surname) &&
+                Objects.equals(birthday, customer.birthday) &&
+                Objects.equals(address, customer.address) &&
+                Objects.equals(phoneNumber, customer.phoneNumber) &&
+                Objects.equals(email, customer.email) &&
+                Objects.equals(password, customer.password) &&
+                Objects.equals(Customer_COMPARATOR_BY_AGE, customer.Customer_COMPARATOR_BY_AGE) &&
+                Objects.equals(Customer_COMPARATOR_BY_NAME, customer.Customer_COMPARATOR_BY_NAME) &&
+                Objects.equals(Customer_COMPARATOR_BY_SURNAME, customer.Customer_COMPARATOR_BY_SURNAME);
     }
 
     @Override
@@ -128,12 +128,12 @@ public class Student implements Comparable<Student>, StudentPrototype {
     }
 
     @Override
-    public StudentPrototype clone(String newPassword) {
+    public CustomerPrototype clone(String newPassword) {
         Address address = (Address) Optional.ofNullable(this.address)
                 .map(Address::clone)
                 .orElse(null);
 
-        return Student.builder()
+        return Customer.builder()
                 .withId(id)
                 .withName(name)
                 .withSurname(surname)
@@ -175,8 +175,8 @@ public class Student implements Comparable<Student>, StudentPrototype {
         }
 
 
-        public Student build() {
-            return new Student(this);
+        public Customer build() {
+            return new Customer(this);
         }
 
 

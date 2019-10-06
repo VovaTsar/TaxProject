@@ -3,8 +3,8 @@ package com.mytask.init;
 
 
 import com.mytask.domain.Address;
-import com.mytask.domain.Student;
-import com.mytask.service.StudentService;
+import com.mytask.domain.Customer;
+import com.mytask.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,16 +13,16 @@ import java.time.LocalDate;
 @Component
 public class Menu {
 
-    private StudentService studentService;
+    private CustomerService customerService;
 
     @Autowired
-    public Menu(StudentService studentService) {
-        this.studentService = studentService;
+    public Menu(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
 
     public void run() {
-        Student vova = Student.builder()
+        Customer vova = Customer.builder()
                 .withName("Vova")
                 .withSurname("Ts")
                 .withBirthday(LocalDate.of(1999, 6, 11))
@@ -32,7 +32,7 @@ public class Menu {
                 .withEmail("vova@gmail.com")
                 .build();
 
-        Student vania = Student.builder()
+        Customer vania = Customer.builder()
                 .withName("Vania")
                 .withSurname("Zaichenko")
                 .withBirthday(LocalDate.of(1999, 1, 13))
@@ -42,7 +42,7 @@ public class Menu {
                 .withEmail("vania@gmail.com")
                 .build();
 
-        Student vasyl = Student.builder()
+        Customer vasyl = Customer.builder()
                 .withName("Vasyl")
                 .withSurname("Zaichenko")
                 .withBirthday(LocalDate.of(1999, 1, 13))
@@ -51,9 +51,9 @@ public class Menu {
                 .withPhoneNumber("38063355345")
                 .withEmail("vasyl@gmail.com")
                 .build();
-        studentService.register(vova);
-        studentService.register(vasyl);
-        studentService.register(vania);
+        customerService.register(vova);
+        customerService.register(vania);
+        customerService.register(vasyl);
 
     }
 }

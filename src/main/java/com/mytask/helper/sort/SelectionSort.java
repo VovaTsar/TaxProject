@@ -1,6 +1,6 @@
 package com.mytask.helper.sort;
 
-import com.mytask.domain.Student;
+import com.mytask.domain.Customer;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,16 +11,16 @@ public final class SelectionSort {
 
     }
 
-    public static ArrayList<Student> sort(ArrayList<Student> students) {
-        for (int left = 0; left < students.size(); left++) {
+    public static ArrayList<Customer> sort(ArrayList<Customer> customers) {
+        for (int left = 0; left < customers.size(); left++) {
             int minInd = left;
-            for (int i = left; i < students.size(); i++) {
-                if (students.get(i).compareTo(students.get(minInd)) < 0) {
+            for (int i = left; i < customers.size(); i++) {
+                if (customers.get(i).compareTo(customers.get(minInd)) < 0) {
                     minInd = i;
                 }
             }
-            Utility.swap(students, left, minInd);
+            Utility.swap(customers, left, minInd);
         }
-        return students;
+        return customers;
     }
 }

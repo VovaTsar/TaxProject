@@ -1,7 +1,7 @@
 package com.mytask.controller;
 
-import com.mytask.domain.Student;
-import com.mytask.service.StudentService;
+import com.mytask.domain.Customer;
+import com.mytask.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,63 +9,63 @@ import java.util.ArrayList;
 
 @Component
 public class MainController {
-    private StudentService studentService;
+    private CustomerService customerService;
 
     @Autowired
-    public MainController(StudentService studentService) {
-        this.studentService = studentService;
+    public MainController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
-    public Student register(Student student) {
-        return studentService.register(student);
-    }
-
-
-    public Student findById(Long id) {
-
-        return studentService.findById(id);
-    }
-
-    public Student login(String email, String password) {
-        return studentService.login(email, password);
-    }
-    public Student deleteById(Long id) {
-
-        return studentService.deleteById(id);
+    public Customer register(Customer customer) {
+        return customerService.register(customer);
     }
 
 
-    public void update(Student student) {
+    public Customer findById(Long id) {
 
-        studentService.update(student);
+        return customerService.findById(id);
     }
 
-    public ArrayList<Student> findAll() {
+    public Customer login(String email, String password) {
+        return customerService.login(email, password);
+    }
 
-        return studentService.findAll();
+    public Customer deleteById(Long id) {
+
+        return customerService.deleteById(id);
     }
 
 
+    public void update(Customer customer) {
 
-//    public ArrayList<Student> findByDepartment(Long id) {
+        customerService.update(customer);
+    }
+
+    public ArrayList<Customer> findAll() {
+
+        return customerService.findAll();
+    }
+
+
+//    public ArrayList<Customer> findByDepartment(Long id) {
 //
-//        return studentService.findByDepartment(id);
+//        return customerService.findByDepartment(id);
 //    }
 //
 //
-//    public ArrayList<Student> findByYear(int year) {
+//    public ArrayList<Customer> findByYear(int year) {
 //
-//        return studentService.findByYear(year);
+//        return customerService.findByYear(year);
 //    }
 //
 //
-//    public ArrayList<Student> findByGroup(String group) {
+//    public ArrayList<Customer> findByGroup(String group) {
 //
-//        return studentService.findByGroup(group);
+//        return customerService.findByGroup(group);
 //    }
 //
 //
-//    public ArrayList<Student> findByDepartmentAndCourse(Long id, int course) {
-//        return studentService.findByDepartmentAndCourse(id, course);
+//    public ArrayList<Customer> findByDepartmentAndCourse(Long id, int course) {
+//        return customerService.findByDepartmentAndCourse(id, course);
 //    }
 }

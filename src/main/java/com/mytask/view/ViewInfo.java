@@ -1,7 +1,7 @@
 package com.mytask.view;
 
 import com.mytask.controller.MainController;
-import com.mytask.domain.Student;
+import com.mytask.domain.Customer;
 import com.mytask.helper.utillity.Converter;
 import com.mytask.helper.sort.BubbleSort;
 import com.mytask.helper.validator.ValidatorFactory;
@@ -58,10 +58,10 @@ public class ViewInfo {
     void menu() {
 
         System.out.println(lang.getString("menu"));
-        System.out.println("1 - " + lang.getString("viewStudent"));
-        System.out.println("2 - " + lang.getString("addStudent"));
-        System.out.println("3 - " + lang.getString("sortStudent"));
-        System.out.println("4 - " + lang.getString("loginStudent"));
+        System.out.println("1 - " + lang.getString("viewCustomer"));
+        System.out.println("2 - " + lang.getString("addCustomer"));
+        System.out.println("3 - " + lang.getString("sortCustomer"));
+        System.out.println("4 - " + lang.getString("loginCustomer"));
         System.out.println("5 - " + lang.getString("inputId"));
 //        System.out.println("6 - " + lang.getString("inputIdDepartment"));
 //        System.out.println("7 - " + lang.getString("inputGroup"));
@@ -77,14 +77,14 @@ public class ViewInfo {
 
         switch (choice) {
             case 1:
-                printAllStudents(BubbleSort.sort(mainController.findAll()));
+                printAllCustomers(BubbleSort.sort(mainController.findAll()));
                 break;
 
             case 2:
-                createStudentFromConsole();
+                createCustomerFromConsole();
                 break;
             case 3:
-                sortStudent();
+                sortCustomer();
                 break;
             case 4:
                 System.out.println(login());
@@ -93,13 +93,13 @@ public class ViewInfo {
                 System.out.println(findById());
                 break;
 //            case 6:
-//                printAllStudents(findByDepartment());
+//                printAllCustomers(findByDepartment());
 //                break;
 //            case 7:
-//                printAllStudents(findByGroup());
+//                printAllCustomers(findByGroup());
 //                break;
 //            case 8:
-//                printAllStudents(findByDepartmentAndCourse());
+//                printAllCustomers(findByDepartmentAndCourse());
 //                break;
             case 9:
                 chooseMenuLang();
@@ -108,37 +108,37 @@ public class ViewInfo {
         menu();
     }
 
-    void printAllStudents(ArrayList<Student> students) {
+    void printAllCustomers(ArrayList<Customer> customers) {
         if (mainController.findAll().isEmpty())
-            System.out.println(lang.getString("noStudentYet"));
+            System.out.println(lang.getString("noCustomerYet"));
         else {
-            System.out.println("\n" + lang.getString("listStudent"));
-            for (Student student : students
+            System.out.println("\n" + lang.getString("listCustomer"));
+            for (Customer customer : customers
             ) {
-                System.out.println(student);
+                System.out.println(customer);
             }
             System.out.println();
         }
     }
 
-    void createStudentFromConsole() {
+    void createCustomerFromConsole() {
 
         String name = writeFieldValidator("name");
         String surname = writeFieldValidator("surname");
          String email = writeFieldValidator("email");
-        //System.out.println(lang.getString("emailStudent"));
+        //System.out.println(lang.getString("emailCustomer"));
       //  String email = in.nextLine();
         String phoneNumber = writeFieldValidator("phoneNumber");
         String birthday = writeFieldValidator("date");
     //    Department department = new Department(1L, "dep1");
-       // System.out.println(lang.getString("groupStudent"));
+       // System.out.println(lang.getString("groupCustomer"));
       //  String group = in.nextLine();
      //   int course = Integer.parseInt(writeFieldValidator("course"));
-        System.out.println(lang.getString("passwordStudent"));
+        System.out.println(lang.getString("passwordCustomer"));
         String password = in.nextLine();
 
 
-        Student student = Student.builder()
+        Customer customer = Customer.builder()
                 .withName(name)
                 .withSurname(surname)
                 .withBirthday(splitBirthday(birthday))
@@ -149,8 +149,8 @@ public class ViewInfo {
               //  .withCourse(course)
                 .withEmail(email)
                 .build();
-        mainController.register(student);
-        System.out.println(lang.getString("studentCreated") + "\n");
+        mainController.register(customer);
+        System.out.println(lang.getString("CustomerCreated") + "\n");
 
         menu();
 
@@ -160,14 +160,14 @@ public class ViewInfo {
         return LocalDate.parse(birthday, formatter);
     }
 
-    void sortStudent() {
+    void sortCustomer() {
         System.out.println(lang.getString("usersAreSorted") + "\n");
-        printAllStudents(BubbleSort.sort(mainController.findAll()));
+        printAllCustomers(BubbleSort.sort(mainController.findAll()));
     }
 
     private String writeFieldValidator(String nameField) {
 
-        String key = nameField + "Student";
+        String key = nameField + "Customer";
         System.out.println(lang.getString(key));
         String fieldInput = in.nextLine();
         if (!ValidatorFactory.getValidator(nameField).validate(fieldInput)) {
@@ -177,41 +177,41 @@ public class ViewInfo {
         return fieldInput;
     }
 
-    private Student login(){
+    private Customer login(){
         System.out.println("");
         String email = writeFieldValidator("email");
-        System.out.println(lang.getString("passwordStudent"));
+        System.out.println(lang.getString("passwordCustomer"));
         String password = in.nextLine();
         return mainController.login(email,password);
     }
-    public void print(ArrayList<Student> students) {
-        for (Student student : students) {
-            print(student);
+    public void print(ArrayList<Customer> customers) {
+        for (Customer customer : customers) {
+            print(customer);
         }
     }
 
-    public void print(Student students) {
-        System.out.println(students);
+    public void print(Customer Customers) {
+        System.out.println(Customers);
     }
 
-    private Student findById() {
+    private Customer findById() {
         System.out.println(lang.getString("inputId"));
         return mainController.findById(in.nextLong());
     }
 //
-//    private ArrayList<Student> findByDepartment() {
+//    private ArrayList<Customer> findByDepartment() {
 //        System.out.println(lang.getString("inputIdDepartment"));
 //        return mainController.findByDepartment(in.nextLong());
 //    }
 //
-//    private ArrayList<Student> findByGroup() {
+//    private ArrayList<Customer> findByGroup() {
 //        System.out.println(lang.getString("inputGroup"));
 //        String group = in.nextLine();
 //        group = in.nextLine();
 //        return mainController.findByGroup(group);
 //    }
 //
-//    private ArrayList<Student> findByDepartmentAndCourse() {
+//    private ArrayList<Customer> findByDepartmentAndCourse() {
 //        System.out.println(lang.getString("inputIdDepartment"));
 //        Long department = in.nextLong();
 //        System.out.println(lang.getString("inputCourse"));

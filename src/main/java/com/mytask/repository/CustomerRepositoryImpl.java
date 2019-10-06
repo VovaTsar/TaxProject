@@ -1,6 +1,6 @@
 package com.mytask.repository;
 
-import com.mytask.domain.Student;
+import com.mytask.domain.Customer;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -9,58 +9,58 @@ import java.util.Map;
 import java.util.Optional;
 
 @Repository
-public class StudentRepositoryImpl implements StudentRepository {
+public class CustomerRepositoryImpl implements CustomerRepository {
 
 
-    private Map<Long, Student> idToStudents = new HashMap<>();
+    private Map<Long, Customer> idToCustomers = new HashMap<>();
     private static Long counter = 0L;
 
     @Override
-    public Student save(Student student) {
+    public Customer save(Customer customer) {
 
-        return idToStudents.put(++counter, student);
+        return idToCustomers.put(++counter, customer);
     }
 
 
     @Override
-    public Optional<Student> findById(Long id) {
+    public Optional<Customer> findById(Long id) {
 
-        return Optional.ofNullable(idToStudents.get(id));
+        return Optional.ofNullable(idToCustomers.get(id));
     }
 
     @Override
-    public Optional<Student> findByEmail(String email) {
-        Student student=null;
-        for (Long i = 1L; i <idToStudents.size()+1 ; i++) {
-            if (idToStudents.get(i).getEmail().equals(email)){
-                student=idToStudents.get(i);
+    public Optional<Customer> findByEmail(String email) {
+        Customer customer =null;
+        for (Long i = 1L; i <idToCustomers.size()+1 ; i++) {
+            if (idToCustomers.get(i).getEmail().equals(email)){
+                customer =idToCustomers.get(i);
                 break;
             }
 
         }
-        return Optional.ofNullable(student);
+        return Optional.ofNullable(customer);
     }
 
     @Override
-    public ArrayList<Student> findAll() {
-        return new ArrayList<>(idToStudents.values());
+    public ArrayList<Customer> findAll() {
+        return new ArrayList<>(idToCustomers.values());
     }
 
 
     @Override
-    public void update(Student student) {
-        idToStudents.replace(student.getId(), student);
+    public void update(Customer customer) {
+        idToCustomers.replace(customer.getId(), customer);
     }
 
     @Override
-    public Optional<Student> deleteById(Long id) {
+    public Optional<Customer> deleteById(Long id) {
 
-        return Optional.ofNullable(idToStudents.remove(id));
+        return Optional.ofNullable(idToCustomers.remove(id));
     }
 
 //    @Override
-//    public ArrayList<Student> findByDepartment(Long id) {
-//        ArrayList<Student> findByFacultyStudents = new ArrayList<>();
+//    public ArrayList<Customer> findByDepartment(Long id) {
+//        ArrayList<Customer> findByFacultyStudents = new ArrayList<>();
 //        for (Long i = 1L; i < idToStudents.size() + 1; i++) {
 //            if (id.equals(idToStudents.get(i).getDepartment().getId())) {
 //                findByFacultyStudents.add(idToStudents.get(i));
@@ -71,8 +71,8 @@ public class StudentRepositoryImpl implements StudentRepository {
 //
 //
 //    @Override
-//    public ArrayList<Student> findByYear(int year) {
-//        ArrayList<Student> findByYearStudents = new ArrayList<>();
+//    public ArrayList<Customer> findByYear(int year) {
+//        ArrayList<Customer> findByYearStudents = new ArrayList<>();
 //
 //        for (Long i = 1L; i < idToStudents.size() + 1; i++) {
 //            if (year < idToStudents.get(i).getBirthday().getYear()) {
@@ -84,8 +84,8 @@ public class StudentRepositoryImpl implements StudentRepository {
 //
 //
 //    @Override
-//    public ArrayList<Student> findByGroup(String group) {
-//        ArrayList<Student> findByGroupStudents = new ArrayList<>();
+//    public ArrayList<Customer> findByGroup(String group) {
+//        ArrayList<Customer> findByGroupStudents = new ArrayList<>();
 //        for (Long i = 1L; i < idToStudents.size() + 1; i++) {
 //            if (group.equals(idToStudents.get(i).getGroup())) {
 //                findByGroupStudents.add(idToStudents.get(i));
@@ -95,8 +95,8 @@ public class StudentRepositoryImpl implements StudentRepository {
 //    }
 //
 //    @Override
-//    public ArrayList<Student> findByDepartmentAndCourse(Long idDepartment, int course) {
-//        ArrayList<Student> findByDepartmentAndCourseStudents = new ArrayList<>();
+//    public ArrayList<Customer> findByDepartmentAndCourse(Long idDepartment, int course) {
+//        ArrayList<Customer> findByDepartmentAndCourseStudents = new ArrayList<>();
 //        for (Long i = 1L; i < idToStudents.size() + 1; i++) {
 //            if (idDepartment.equals(idToStudents.get(i).getDepartment().getId())
 //                    && course == idToStudents.get(i).getCourse()) {
