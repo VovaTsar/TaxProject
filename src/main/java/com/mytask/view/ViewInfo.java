@@ -1,7 +1,6 @@
 package com.mytask.view;
 
 import com.mytask.controller.MainController;
-import com.mytask.domain.Department;
 import com.mytask.domain.Student;
 import com.mytask.helper.utillity.Converter;
 import com.mytask.helper.sort.BubbleSort;
@@ -64,9 +63,9 @@ public class ViewInfo {
         System.out.println("3 - " + lang.getString("sortStudent"));
         System.out.println("4 - " + lang.getString("loginStudent"));
         System.out.println("5 - " + lang.getString("inputId"));
-        System.out.println("6 - " + lang.getString("inputIdDepartment"));
-        System.out.println("7 - " + lang.getString("inputGroup"));
-        System.out.println("8 - " + lang.getString("inputCourse"));
+//        System.out.println("6 - " + lang.getString("inputIdDepartment"));
+//        System.out.println("7 - " + lang.getString("inputGroup"));
+//        System.out.println("8 - " + lang.getString("inputCourse"));
         System.out.println("9 - " + lang.getString("chooseLanguage"));
 
         int choice;
@@ -93,15 +92,15 @@ public class ViewInfo {
             case 5:
                 System.out.println(findById());
                 break;
-            case 6:
-                printAllStudents(findByDepartment());
-                break;
-            case 7:
-                printAllStudents(findByGroup());
-                break;
-            case 8:
-                printAllStudents(findByDepartmentAndCourse());
-                break;
+//            case 6:
+//                printAllStudents(findByDepartment());
+//                break;
+//            case 7:
+//                printAllStudents(findByGroup());
+//                break;
+//            case 8:
+//                printAllStudents(findByDepartmentAndCourse());
+//                break;
             case 9:
                 chooseMenuLang();
                 break;
@@ -131,41 +130,30 @@ public class ViewInfo {
       //  String email = in.nextLine();
         String phoneNumber = writeFieldValidator("phoneNumber");
         String birthday = writeFieldValidator("date");
-        Department department = new Department(1L, "dep1");
-        System.out.println(lang.getString("groupStudent"));
-        String group = in.nextLine();
-        int course = Integer.parseInt(writeFieldValidator("course"));
+    //    Department department = new Department(1L, "dep1");
+       // System.out.println(lang.getString("groupStudent"));
+      //  String group = in.nextLine();
+     //   int course = Integer.parseInt(writeFieldValidator("course"));
         System.out.println(lang.getString("passwordStudent"));
         String password = in.nextLine();
 
-//        javax.validation.ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-//        Validator validator = factory.getValidator();
 
         Student student = Student.builder()
                 .withName(name)
                 .withSurname(surname)
                 .withBirthday(splitBirthday(birthday))
-                .withDepartment(department)
+              //  .withDepartment(department)
                 .withPhoneNumber(phoneNumber)
-                .withGroup(group)
+             //   .withGroup(group)
                 .withPassword(password)
-                .withCourse(course)
+              //  .withCourse(course)
                 .withEmail(email)
                 .build();
         mainController.register(student);
         System.out.println(lang.getString("studentCreated") + "\n");
 
         menu();
-//
-//        Set<ConstraintViolation<Student>> constraintViolations = validator.validate(student);
-//
-//        if (constraintViolations.size() > 0) {
-//            for (ConstraintViolation<Student> violation : constraintViolations) {
-//                System.out.println(violation.getMessage());
-//            }
-//        } else {
-//            System.out.println("Valid Object");
-//        }
+
     }
     LocalDate splitBirthday(String birthday) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -189,7 +177,7 @@ public class ViewInfo {
         return fieldInput;
     }
 
-    private Optional<Student> login(){
+    private Student login(){
         System.out.println("");
         String email = writeFieldValidator("email");
         System.out.println(lang.getString("passwordStudent"));
@@ -206,29 +194,29 @@ public class ViewInfo {
         System.out.println(students);
     }
 
-    private Optional<Student> findById() {
+    private Student findById() {
         System.out.println(lang.getString("inputId"));
         return mainController.findById(in.nextLong());
     }
-
-    private ArrayList<Student> findByDepartment() {
-        System.out.println(lang.getString("inputIdDepartment"));
-        return mainController.findByDepartment(in.nextLong());
-    }
-
-    private ArrayList<Student> findByGroup() {
-        System.out.println(lang.getString("inputGroup"));
-        String group = in.nextLine();
-        group = in.nextLine();
-        return mainController.findByGroup(group);
-    }
-
-    private ArrayList<Student> findByDepartmentAndCourse() {
-        System.out.println(lang.getString("inputIdDepartment"));
-        Long department = in.nextLong();
-        System.out.println(lang.getString("inputCourse"));
-        int course = in.nextInt();
-        return mainController.findByDepartmentAndCourse(department, course);
-    }
+//
+//    private ArrayList<Student> findByDepartment() {
+//        System.out.println(lang.getString("inputIdDepartment"));
+//        return mainController.findByDepartment(in.nextLong());
+//    }
+//
+//    private ArrayList<Student> findByGroup() {
+//        System.out.println(lang.getString("inputGroup"));
+//        String group = in.nextLine();
+//        group = in.nextLine();
+//        return mainController.findByGroup(group);
+//    }
+//
+//    private ArrayList<Student> findByDepartmentAndCourse() {
+//        System.out.println(lang.getString("inputIdDepartment"));
+//        Long department = in.nextLong();
+//        System.out.println(lang.getString("inputCourse"));
+//        int course = in.nextInt();
+//        return mainController.findByDepartmentAndCourse(department, course);
+//    }
 
 }

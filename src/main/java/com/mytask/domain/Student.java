@@ -1,6 +1,5 @@
 package com.mytask.domain;
 
-
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Objects;
@@ -12,10 +11,7 @@ public class Student implements Comparable<Student>, StudentPrototype {
     private final String surname;
     private final LocalDate birthday;
     private final Address address;
-    private final Department department;
     private final String phoneNumber;
-    private final String group;
-    private final int course;
     private final String email;
     private final String password;
     private static Long counter = 0L;
@@ -52,10 +48,7 @@ public class Student implements Comparable<Student>, StudentPrototype {
         this.surname = builder.surname;
         this.birthday = builder.birthday;
         this.address = builder.address;
-        this.department = builder.department;
         this.phoneNumber = builder.phoneNumber;
-        this.group = builder.group;
-        this.course = builder.course;
         this.email = builder.email;
         this.password = builder.password;
     }
@@ -84,21 +77,10 @@ public class Student implements Comparable<Student>, StudentPrototype {
         return address;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public String getGroup() {
-        return group;
-    }
-
-    public int getCourse() {
-        return course;
-    }
 
     public String getEmail() {
         return email;
@@ -116,10 +98,7 @@ public class Student implements Comparable<Student>, StudentPrototype {
                 ", surname='" + surname + '\'' +
                 ", birthday=" + birthday +
                 ", address=" + address +
-                ", department=" + department +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", group='" + group + '\'' +
-                ", course=" + course +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
@@ -127,29 +106,25 @@ public class Student implements Comparable<Student>, StudentPrototype {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()){
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return course == student.course &&
-                Objects.equals(id, student.id) &&
+        return Objects.equals(id, student.id) &&
                 Objects.equals(name, student.name) &&
                 Objects.equals(surname, student.surname) &&
                 Objects.equals(birthday, student.birthday) &&
                 Objects.equals(address, student.address) &&
-                Objects.equals(department, student.department) &&
                 Objects.equals(phoneNumber, student.phoneNumber) &&
-                Objects.equals(group, student.group) &&
                 Objects.equals(email, student.email) &&
-                Objects.equals(password, student.password);
+                Objects.equals(password, student.password) &&
+                Objects.equals(Student_COMPARATOR_BY_AGE, student.Student_COMPARATOR_BY_AGE) &&
+                Objects.equals(Student_COMPARATOR_BY_NAME, student.Student_COMPARATOR_BY_NAME) &&
+                Objects.equals(Student_COMPARATOR_BY_SURNAME, student.Student_COMPARATOR_BY_SURNAME);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, birthday, address, department, phoneNumber, group, course, email, password);
+        return Objects.hash(id, name, surname, birthday, address, phoneNumber, email, password);
     }
 
     @Override
@@ -157,22 +132,16 @@ public class Student implements Comparable<Student>, StudentPrototype {
         Address address = (Address) Optional.ofNullable(this.address)
                 .map(Address::clone)
                 .orElse(null);
-        Department department = (Department) Optional.ofNullable(this.department)
-                .map(Department::clone)
-                .orElse(null);
 
         return Student.builder()
                 .withId(id)
                 .withName(name)
                 .withSurname(surname)
                 .withBirthday(birthday)
-                .withGroup(group)
                 .withPassword(newPassword)
                 .withAddress(address)
                 .withPhoneNumber(phoneNumber)
-                .withDepartment(department)
                 .withEmail(email)
-                .withCourse(course)
                 .build();
     }
 
@@ -182,10 +151,7 @@ public class Student implements Comparable<Student>, StudentPrototype {
         private String surname;
         private LocalDate birthday;
         private Address address;
-        private Department department;
         private String phoneNumber;
-        private int course;
-        private String group;
         private String email;
         private String password;
 
@@ -204,16 +170,6 @@ public class Student implements Comparable<Student>, StudentPrototype {
             return this;
         }
 
-        public Builder withGroup(String group) {
-            this.group = group;
-            return this;
-        }
-
-
-        public Builder withCourse(int course) {
-            this.course = course;
-            return this;
-        }
 
         private Builder() {
         }
@@ -244,10 +200,6 @@ public class Student implements Comparable<Student>, StudentPrototype {
             return this;
         }
 
-        public Builder withDepartment(Department department) {
-            this.department = department;
-            return this;
-        }
 
         public Builder withPhoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;

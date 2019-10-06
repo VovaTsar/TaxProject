@@ -16,9 +16,9 @@ public class StudentRepositoryImpl implements StudentRepository {
     private static Long counter = 0L;
 
     @Override
-    public Optional<Student> save(Student student) {
+    public Student save(Student student) {
 
-        return Optional.ofNullable(idToStudents.put(++counter, student));
+        return idToStudents.put(++counter, student);
     }
 
 
@@ -58,52 +58,52 @@ public class StudentRepositoryImpl implements StudentRepository {
         return Optional.ofNullable(idToStudents.remove(id));
     }
 
-    @Override
-    public ArrayList<Student> findByDepartment(Long id) {
-        ArrayList<Student> findByFacultyStudents = new ArrayList<>();
-        for (Long i = 1L; i < idToStudents.size() + 1; i++) {
-            if (id.equals(idToStudents.get(i).getDepartment().getId())) {
-                findByFacultyStudents.add(idToStudents.get(i));
-            }
-        }
-        return findByFacultyStudents;
-    }
-
-
-    @Override
-    public ArrayList<Student> findByYear(int year) {
-        ArrayList<Student> findByYearStudents = new ArrayList<>();
-
-        for (Long i = 1L; i < idToStudents.size() + 1; i++) {
-            if (year < idToStudents.get(i).getBirthday().getYear()) {
-                findByYearStudents.add(idToStudents.get(i));
-            }
-        }
-        return findByYearStudents;
-    }
-
-
-    @Override
-    public ArrayList<Student> findByGroup(String group) {
-        ArrayList<Student> findByGroupStudents = new ArrayList<>();
-        for (Long i = 1L; i < idToStudents.size() + 1; i++) {
-            if (group.equals(idToStudents.get(i).getGroup())) {
-                findByGroupStudents.add(idToStudents.get(i));
-            }
-        }
-        return findByGroupStudents;
-    }
-
-    @Override
-    public ArrayList<Student> findByDepartmentAndCourse(Long idDepartment, int course) {
-        ArrayList<Student> findByDepartmentAndCourseStudents = new ArrayList<>();
-        for (Long i = 1L; i < idToStudents.size() + 1; i++) {
-            if (idDepartment.equals(idToStudents.get(i).getDepartment().getId())
-                    && course == idToStudents.get(i).getCourse()) {
-                findByDepartmentAndCourseStudents.add(idToStudents.get(i));
-            }
-        }
-        return findByDepartmentAndCourseStudents;
-    }
+//    @Override
+//    public ArrayList<Student> findByDepartment(Long id) {
+//        ArrayList<Student> findByFacultyStudents = new ArrayList<>();
+//        for (Long i = 1L; i < idToStudents.size() + 1; i++) {
+//            if (id.equals(idToStudents.get(i).getDepartment().getId())) {
+//                findByFacultyStudents.add(idToStudents.get(i));
+//            }
+//        }
+//        return findByFacultyStudents;
+//    }
+//
+//
+//    @Override
+//    public ArrayList<Student> findByYear(int year) {
+//        ArrayList<Student> findByYearStudents = new ArrayList<>();
+//
+//        for (Long i = 1L; i < idToStudents.size() + 1; i++) {
+//            if (year < idToStudents.get(i).getBirthday().getYear()) {
+//                findByYearStudents.add(idToStudents.get(i));
+//            }
+//        }
+//        return findByYearStudents;
+//    }
+//
+//
+//    @Override
+//    public ArrayList<Student> findByGroup(String group) {
+//        ArrayList<Student> findByGroupStudents = new ArrayList<>();
+//        for (Long i = 1L; i < idToStudents.size() + 1; i++) {
+//            if (group.equals(idToStudents.get(i).getGroup())) {
+//                findByGroupStudents.add(idToStudents.get(i));
+//            }
+//        }
+//        return findByGroupStudents;
+//    }
+//
+//    @Override
+//    public ArrayList<Student> findByDepartmentAndCourse(Long idDepartment, int course) {
+//        ArrayList<Student> findByDepartmentAndCourseStudents = new ArrayList<>();
+//        for (Long i = 1L; i < idToStudents.size() + 1; i++) {
+//            if (idDepartment.equals(idToStudents.get(i).getDepartment().getId())
+//                    && course == idToStudents.get(i).getCourse()) {
+//                findByDepartmentAndCourseStudents.add(idToStudents.get(i));
+//            }
+//        }
+//        return findByDepartmentAndCourseStudents;
+//    }
 
 }
