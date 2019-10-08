@@ -3,9 +3,12 @@ package com.mytask.controller;
 import com.mytask.domain.Customer;
 import com.mytask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-
+@Component
+@Primary
 public class UserController {
     private UserService userService;
 

@@ -1,11 +1,14 @@
 package com.mytask.view;
 
 import com.mytask.controller.AdminController;
+import com.mytask.controller.UserController;
 import com.mytask.domain.Customer;
+import com.mytask.domain.Role;
 import com.mytask.helper.utillity.Converter;
 import com.mytask.helper.sort.BubbleSort;
 import com.mytask.helper.validator.ValidatorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 
@@ -16,11 +19,14 @@ import java.util.*;
 @Component
 public class ViewInfo {
 
+    private UserController userController;
     private AdminController adminController;
-    private ResourceBundle lang;
+    private Customer currentCustomer;
+    private ResourceBundle language;
 
     @Autowired
-    public ViewInfo(AdminController adminController) {
+    public ViewInfo(UserController userController, AdminController adminController) {
+        this.userController = userController;
         this.adminController = adminController;
     }
 
@@ -31,7 +37,7 @@ public class ViewInfo {
     }
 
 
-    public void chooseMenuLang() {
+    protected void chooseMenuLang() {
         System.out.println("Choose language/Оберіть мову");
         System.out.println("English (1)");
         System.out.println("Українська (2)");
@@ -40,79 +46,112 @@ public class ViewInfo {
         chooseLang(chooseLanguage);
     }
 
-    void chooseLang(int chooseLang) {
+    private void chooseLang(int chooseLang) {
 
         try {
             if (chooseLang == 1) {
-                lang = ResourceBundle.getBundle("resources", new Locale("en"), new Converter());
+                language = ResourceBundle.getBundle("resources", new Locale("en"), new Converter());
             } else if (chooseLang == 2) {
-                lang = ResourceBundle.getBundle("resources", new Locale("ua"), new Converter());
+                language = ResourceBundle.getBundle("resources", new Locale("ua"), new Converter());
             } else
                 chooseMenuLang();
         } catch (Exception e) {
-            throw new IllegalArgumentException(lang.getString("uncorrectedArgument"));
+            throw new IllegalArgumentException(language.getString("uncorrectedArgument"));
         }
-        menu();
+        loginOrRegister();
     }
 
-    void menu() {
+    private void loginOrRegister() {
+        System.out.println("1 - " + language.getString("registration"));
+        System.out.println("2 - " + language.getString("login"));
+        int loginOrRegister = in.nextInt();
 
-        System.out.println(lang.getString("menu"));
-        System.out.println("1 - " + lang.getString("viewCustomer"));
-        System.out.println("2 - " + lang.getString("addCustomer"));
-        System.out.println("3 - " + lang.getString("sortCustomer"));
-        System.out.println("4 - " + lang.getString("loginCustomer"));
-        System.out.println("5 - " + lang.getString("inputId"));
-//        System.out.println("6 - " + lang.getString("inputIdDepartment"));
-//        System.out.println("7 - " + lang.getString("inputGroup"));
-//        System.out.println("8 - " + lang.getString("inputCourse"));
-        System.out.println("9 - " + lang.getString("chooseLanguage"));
+        if (loginOrRegister == 1) {
+            register();
+        } else if (loginOrRegister == 2) {
+            login();
+        } else {
+            loginOrRegister();
+        }
+    }
+
+    private void menu() {
+        if (currentCustomer.getRole() == Role.ADMIN) {
+            menuAdmin();
+        } else {
+            menuUser();
+        }
+    }
+
+    public void menuUser() {
+        System.out.println(language.getString("menu"));
+        System.out.println("1 - " + language.getString("viewInfoUser"));
+        System.out.println("8 - " + language.getString("chooseLanguage"));
+        System.out.println("9 - " + language.getString("exit"));
 
         int choice;
         try {
             choice = in.nextInt();
         } catch (Exception e) {
-            throw new IllegalArgumentException(lang.getString("uncorrectedArgument"));
+            throw new IllegalArgumentException(language.getString("uncorrectedArgument"));
         }
 
         switch (choice) {
+            case 1:
+                System.out.println(userController.findById(currentCustomer.getId()));
+                break;
+
+            case 8:
+                chooseMenuLang();
+                break;
+            case 9:
+                System.exit(0);
+        }
+        menuUser();
+    }
+
+    private void menuAdmin() {
+        System.out.println(language.getString("menu"));
+        System.out.println("1 - " + language.getString("viewCustomer"));
+        System.out.println("2 - " + language.getString("sortCustomer"));
+        System.out.println("3 - " + language.getString("inputId"));
+        System.out.println("9 - " + language.getString("chooseLanguage"));
+        System.out.println("0 - " + language.getString("exit"));
+
+        int choice;
+        try {
+            choice = in.nextInt();
+        } catch (Exception e) {
+            throw new IllegalArgumentException(language.getString("uncorrectedArgument"));
+        }
+
+        switch (choice) {
+
             case 1:
                 printAllCustomers(BubbleSort.sort(adminController.findAll()));
                 break;
 
             case 2:
-                createCustomerFromConsole();
-                break;
-            case 3:
                 sortCustomer();
                 break;
-            case 4:
-                System.out.println(login());
-                break;
-            case 5:
+            case 3:
                 System.out.println(findById());
                 break;
-//            case 6:
-//                printAllCustomers(findByDepartment());
-//                break;
-//            case 7:
-//                printAllCustomers(findByGroup());
-//                break;
-//            case 8:
-//                printAllCustomers(findByDepartmentAndCourse());
-//                break;
+
             case 9:
                 chooseMenuLang();
                 break;
+            case 0:
+                System.exit(0);
         }
-        menu();
+        menuAdmin();
     }
 
     void printAllCustomers(ArrayList<Customer> customers) {
         if (adminController.findAll().isEmpty())
-            System.out.println(lang.getString("noCustomerYet"));
+            System.out.println(language.getString("noCustomerYet"));
         else {
-            System.out.println("\n" + lang.getString("listCustomer"));
+            System.out.println("\n" + language.getString("listCustomer"));
             for (Customer customer : customers
             ) {
                 System.out.println(customer);
@@ -121,20 +160,25 @@ public class ViewInfo {
         }
     }
 
-    void createCustomerFromConsole() {
+    void sortCustomer() {
+        System.out.println(language.getString("usersAreSorted") + "\n");
+        printAllCustomers(BubbleSort.sort(adminController.findAll()));
+    }
+
+    private Customer findById() {
+        System.out.println(language.getString("inputId"));
+        return adminController.findById(in.nextLong());
+    }
+
+
+    void register() {
 
         String name = writeFieldValidator("name");
         String surname = writeFieldValidator("surname");
-         String email = writeFieldValidator("email");
-        //System.out.println(lang.getString("emailCustomer"));
-      //  String email = in.nextLine();
+        String email = writeFieldValidator("email");
         String phoneNumber = writeFieldValidator("phoneNumber");
         String birthday = writeFieldValidator("date");
-    //    Department department = new Department(1L, "dep1");
-       // System.out.println(lang.getString("groupCustomer"));
-      //  String group = in.nextLine();
-     //   int course = Integer.parseInt(writeFieldValidator("course"));
-        System.out.println(lang.getString("passwordCustomer"));
+        System.out.println(language.getString("passwordCustomer"));
         String password = in.nextLine();
 
 
@@ -142,48 +186,45 @@ public class ViewInfo {
                 .withName(name)
                 .withSurname(surname)
                 .withBirthday(splitBirthday(birthday))
-              //  .withDepartment(department)
                 .withPhoneNumber(phoneNumber)
-             //   .withGroup(group)
                 .withPassword(password)
-              //  .withCourse(course)
                 .withEmail(email)
                 .build();
-        adminController.register(customer);
-        System.out.println(lang.getString("CustomerCreated") + "\n");
 
-        menu();
+        userController.register(customer);
+        System.out.println(language.getString("CustomerCreated") + "\n");
+        currentCustomer = customer;
+
 
     }
+
     LocalDate splitBirthday(String birthday) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return LocalDate.parse(birthday, formatter);
     }
 
-    void sortCustomer() {
-        System.out.println(lang.getString("usersAreSorted") + "\n");
-        printAllCustomers(BubbleSort.sort(adminController.findAll()));
-    }
 
     private String writeFieldValidator(String nameField) {
 
         String key = nameField + "Customer";
-        System.out.println(lang.getString(key));
+        System.out.println(language.getString(key));
         String fieldInput = in.nextLine();
         if (!ValidatorFactory.getValidator(nameField).validate(fieldInput)) {
-            System.out.println(lang.getString("uncorrectedValue"));
+            System.out.println(language.getString("uncorrectedValue"));
             fieldInput = writeFieldValidator(nameField);
         }
         return fieldInput;
     }
 
-    private Customer login(){
+    private void login() {
         System.out.println("");
         String email = writeFieldValidator("email");
-        System.out.println(lang.getString("passwordCustomer"));
+        System.out.println(language.getString("passwordCustomer"));
         String password = in.nextLine();
-        return adminController.login(email,password);
+        currentCustomer = userController.login(email, password);
+        menu();
     }
+
     public void print(ArrayList<Customer> customers) {
         for (Customer customer : customers) {
             print(customer);
@@ -194,10 +235,7 @@ public class ViewInfo {
         System.out.println(Customers);
     }
 
-    private Customer findById() {
-        System.out.println(lang.getString("inputId"));
-        return adminController.findById(in.nextLong());
-    }
+
 //
 //    private ArrayList<Customer> findByDepartment() {
 //        System.out.println(lang.getString("inputIdDepartment"));

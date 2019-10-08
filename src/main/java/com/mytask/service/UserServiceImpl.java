@@ -7,11 +7,13 @@ import com.mytask.exeption.UserNotExistRuntimeException;
 import com.mytask.helper.utillity.PasswordUtils;
 import com.mytask.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@Primary
 public class UserServiceImpl implements UserService {
 
     protected CustomerRepository customerRepository;
