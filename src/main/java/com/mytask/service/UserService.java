@@ -1,6 +1,6 @@
 package com.mytask.service;
 
-import com.mytask.domain.Customer;
+import com.mytask.domain.customer.Customer;
 
 
 public interface UserService {

@@ -1,7 +1,7 @@
 package com.mytask.helper.sort;
 
 
-import com.mytask.domain.Customer;
+import com.mytask.domain.customer.Customer;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

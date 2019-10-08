@@ -2,13 +2,12 @@ package com.mytask.view;
 
 import com.mytask.controller.AdminController;
 import com.mytask.controller.UserController;
-import com.mytask.domain.Customer;
-import com.mytask.domain.Role;
+import com.mytask.domain.customer.Customer;
+import com.mytask.domain.customer.Role;
 import com.mytask.helper.utillity.Converter;
 import com.mytask.helper.sort.BubbleSort;
 import com.mytask.helper.validator.ValidatorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 

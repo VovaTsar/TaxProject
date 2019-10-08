@@ -1,6 +1,6 @@
 package com.mytask.service;
 
-import com.mytask.domain.Customer;
+import com.mytask.domain.customer.Customer;
 import com.mytask.exeption.UncorrectedIdRuntimeException;
 import com.mytask.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;

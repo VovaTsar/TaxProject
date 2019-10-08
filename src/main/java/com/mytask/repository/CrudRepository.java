@@ -1,6 +1,6 @@
 package com.mytask.repository;
 
-import com.mytask.domain.Customer;
+import com.mytask.domain.customer.Customer;
 
 import java.util.ArrayList;
 import java.util.Optional;

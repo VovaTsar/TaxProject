@@ -1,4 +1,4 @@
-package com.mytask.domain;
+package com.mytask.domain.customer;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -114,8 +114,12 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Customer customer = (Customer) o;
         return Objects.equals(id, customer.id) &&
                 Objects.equals(name, customer.name) &&
@@ -124,10 +128,7 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
                 Objects.equals(address, customer.address) &&
                 Objects.equals(phoneNumber, customer.phoneNumber) &&
                 Objects.equals(email, customer.email) &&
-                Objects.equals(password, customer.password) &&
-                Objects.equals(Customer_COMPARATOR_BY_AGE, customer.Customer_COMPARATOR_BY_AGE) &&
-                Objects.equals(Customer_COMPARATOR_BY_NAME, customer.Customer_COMPARATOR_BY_NAME) &&
-                Objects.equals(Customer_COMPARATOR_BY_SURNAME, customer.Customer_COMPARATOR_BY_SURNAME);
+                Objects.equals(password, customer.password) ;
     }
 
     @Override

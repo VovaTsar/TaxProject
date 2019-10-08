@@ -2,9 +2,9 @@ package com.mytask.init;
 
 
 
-import com.mytask.domain.Address;
-import com.mytask.domain.Customer;
-import com.mytask.domain.Role;
+import com.mytask.domain.customer.Address;
+import com.mytask.domain.customer.Customer;
+import com.mytask.domain.customer.Role;
 import com.mytask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

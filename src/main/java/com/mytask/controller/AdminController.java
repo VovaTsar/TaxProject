@@ -1,6 +1,6 @@
 package com.mytask.controller;
 
-import com.mytask.domain.Customer;
+import com.mytask.domain.customer.Customer;
 import com.mytask.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
