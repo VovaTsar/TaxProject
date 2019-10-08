@@ -1,4 +1,4 @@
-package com.mytask.domain;
+package com.mytask.domain.customer;
 
 public interface Prototype {
     Prototype clone();

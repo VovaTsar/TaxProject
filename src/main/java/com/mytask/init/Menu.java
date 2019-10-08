@@ -2,9 +2,10 @@ package com.mytask.init;
 
 
 
-import com.mytask.domain.Address;
-import com.mytask.domain.Customer;
-import com.mytask.service.CustomerService;
+import com.mytask.domain.customer.Address;
+import com.mytask.domain.customer.Customer;
+import com.mytask.domain.customer.Role;
+import com.mytask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,11 +14,11 @@ import java.time.LocalDate;
 @Component
 public class Menu {
 
-    private CustomerService customerService;
+    private UserService userService;
 
     @Autowired
-    public Menu(CustomerService customerService) {
-        this.customerService = customerService;
+    public Menu(UserService userService) {
+        this.userService = userService;
     }
 
 
@@ -30,6 +31,7 @@ public class Menu {
                 .withAddress(new Address("Kyiv", "WWW", 7))
                 .withPhoneNumber("3807341345")
                 .withEmail("vova@gmail.com")
+                .withRole(Role.ADMIN)
                 .build();
 
         Customer vania = Customer.builder()
@@ -40,6 +42,7 @@ public class Menu {
                 .withAddress(new Address("Kyiv", "WWW", 8))
                 .withPhoneNumber("38043545345")
                 .withEmail("vania@gmail.com")
+
                 .build();
 
         Customer vasyl = Customer.builder()
@@ -51,9 +54,9 @@ public class Menu {
                 .withPhoneNumber("38063355345")
                 .withEmail("vasyl@gmail.com")
                 .build();
-        customerService.register(vova);
-        customerService.register(vania);
-        customerService.register(vasyl);
+        userService.register(vova);
+        userService.register(vania);
+        userService.register(vasyl);
 
     }
 }
