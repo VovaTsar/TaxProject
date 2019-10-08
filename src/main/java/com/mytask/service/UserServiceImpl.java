@@ -20,10 +20,12 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     protected CustomerRepository customerRepository;
+    private TaxService taxService;
 
     @Autowired
-    public UserServiceImpl(CustomerRepository customerRepository) {
+    public UserServiceImpl(CustomerRepository customerRepository, TaxService taxService) {
         this.customerRepository = customerRepository;
+        this.taxService = taxService;
     }
 
     @Override
@@ -74,25 +76,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addTax(Customer customer, Tax tax) {
+    public ArrayList<Tax> findAllTaxes(Customer customer) {
         if (customer == null) {
             throw new CustomerNotExistRuntimeException("Customer is not exist");
         }
-        if (tax == null) {
-            throw new TaxNotExistRuntimeException(" Tax is not exist");
+        return customer.getReport().getTaxes();
+    }
+
+    @Override
+    public void addTax(Customer customer, Long idTax) {
+        if (customer == null) {
+            throw new CustomerNotExistRuntimeException("Customer is not exist");
         }
+        Tax tax = taxService.findById(idTax);
         customer.getReport().add(tax);
         update(customer);
     }
 
     @Override
-    public void deleteTax(Customer customer, Tax tax) {
+    public void deleteTax(Customer customer, Long idTax) {
         if (customer == null) {
             throw new CustomerNotExistRuntimeException("Customer is not exist");
         }
-        if (tax == null) {
-            throw new TaxNotExistRuntimeException(" Tax is not exist");
-        }
+        Tax tax = taxService.findById(idTax);
         customer.getReport().remove(tax);
         update(customer);
     }

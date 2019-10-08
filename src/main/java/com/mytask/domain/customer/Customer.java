@@ -56,6 +56,7 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
         this.email = builder.email;
         this.password = builder.password;
         this.role = builder.role;
+        report = new Report();
     }
 
     public static Builder builder() {
@@ -119,6 +120,7 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", report=" + report +
                 '}';
     }
 

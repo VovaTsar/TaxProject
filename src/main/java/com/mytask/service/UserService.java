@@ -14,12 +14,14 @@ public interface UserService {
     Customer login(String email, String password);
 
     void update(Customer customer);
+    ArrayList<Tax> findAllTaxes(Customer customer);
 
-    void addTax(Customer customer, Tax tax);
+    void addTax(Customer customer,  Long idTax);
 
-    void deleteTax(Customer customer, Tax tax);
+    void deleteTax(Customer customer,  Long idTax);
 
     ArrayList<Tax> sortTax(Customer customer);
 
     int sumOfTaxes(Customer customer);
+
 }

@@ -17,6 +17,10 @@ public class Report {
         this.taxes = taxes;
     }
 
+    public ArrayList<Tax> getTaxes() {
+        return taxes;
+    }
+
     public void add(Tax tax) {
         if (tax == null) {
             throw new TaxActionWithNullRuntimeException("Add null to Tax");
@@ -44,4 +48,13 @@ public class Report {
         return taxes;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder("Report {");
+        for (Tax tax : taxes) {
+            result.append(tax.toString());
+        }
+        result.append("}");
+        return result.toString();
+    }
 }

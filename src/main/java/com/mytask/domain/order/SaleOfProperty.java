@@ -7,6 +7,6 @@ public class SaleOfProperty extends Tax {
 
     @Override
     public String toString() {
-        return "SaleOfProperty{" + "amountOfTaxes=" + amountOfTaxes + ", currency=" + currency + ", taxRecipient=" + taxRecipient + '}';
+        return "SaleOfProperty{id: " + id + " amountOfTaxes=" + amountOfTaxes + ", currency=" + currency + ", taxRecipient=" + taxRecipient + '}';
     }
 }

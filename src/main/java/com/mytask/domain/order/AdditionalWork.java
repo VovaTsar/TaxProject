@@ -9,6 +9,6 @@ public class AdditionalWork extends Tax {
 
     @Override
     public String toString() {
-        return "AdditionalWork{" + "amountOfTaxes=" + amountOfTaxes + ", currency=" + currency + ", taxRecipient=" + taxRecipient + '}';
+        return "AdditionalWork{id: " + id + " amountOfTaxes=" + amountOfTaxes + ", currency=" + currency + ", taxRecipient=" + taxRecipient + '}';
     }
 }

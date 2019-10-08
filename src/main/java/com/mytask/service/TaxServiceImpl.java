@@ -25,6 +25,7 @@ public class TaxServiceImpl implements TaxService {
             throw new TaxNotExistRuntimeException(" Tax is not exist");
         }
         return taxRepository.save(tax);
+
     }
 
     @Override

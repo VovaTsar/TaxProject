@@ -37,24 +37,28 @@ public class AdminController {
         adminService.update(customer);
     }
 
+    public void addTax(Customer customer, Long idTax) {
+        adminService.addTax(customer, idTax);
+    }
+
     public Customer deleteById(Long id) {
         return adminService.deleteById(id);
     }
 
-    void addTax(Customer customer, Tax tax) {
-        adminService.addTax(customer, tax);
+
+    public void deleteTax(Customer customer, Long idTax) {
+        adminService.deleteTax(customer, idTax);
     }
 
-    void deleteTax(Customer customer, Tax tax) {
-        adminService.deleteTax(customer, tax);
-    }
-
-    ArrayList<Tax> sortTax(Customer customer) {
+    public ArrayList<Tax> sortTax(Customer customer) {
         return adminService.sortTax(customer);
     }
 
-    int sumOfTaxes(Customer customer) {
+    public int sumOfTaxes(Customer customer) {
         return adminService.sumOfTaxes(customer);
     }
 
+    public ArrayList<Tax> findAllTaxes(Customer customer) {
+        return adminService.findAllTaxes(customer);
+    }
 }

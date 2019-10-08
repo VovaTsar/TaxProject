@@ -9,6 +9,6 @@ public class ReceiptAsGift extends Tax {
 
     @Override
     public String toString() {
-        return "ReceiptAsGift{" + "amountOfTaxes=" + amountOfTaxes + ", currency=" + currency + ", taxRecipient=" + taxRecipient + '}';
+        return "ReceiptAsGift{id: " + id + " amountOfTaxes=" + amountOfTaxes + ", currency=" + currency + ", taxRecipient=" + taxRecipient + '}';
     }
 }

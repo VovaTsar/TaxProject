@@ -7,6 +7,6 @@ public class TransferFromAbroad extends Tax {
 
     @Override
     public String toString() {
-        return "TransferFromAbroad{" + "amountOfTaxes=" + amountOfTaxes + ", currency=" + currency + ", taxRecipient=" + taxRecipient + '}';
+        return "TransferFromAbroad{id: " + id + " amountOfTaxes=" + amountOfTaxes + ", currency=" + currency + ", taxRecipient=" + taxRecipient + '}';
     }
 }
