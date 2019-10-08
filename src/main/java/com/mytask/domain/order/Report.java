@@ -8,6 +8,7 @@ import java.util.Collections;
 public class Report {
     private ArrayList<Tax> taxes;
 
+
     public Report() {
         taxes = new ArrayList<>();
     }
