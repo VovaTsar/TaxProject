@@ -1,5 +1,7 @@
 package com.mytask.domain.customer;
 
+import com.mytask.domain.order.Report;
+
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Objects;
@@ -16,7 +18,7 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
     private final String password;
     private final Role role;
     private static Long counter = 0L;
-
+    private Report report;
 
     private final Comparator<Customer> Customer_COMPARATOR_BY_AGE =
             Comparator.comparingInt(student -> LocalDate.now().getYear() - student.birthday.getYear());
@@ -53,15 +55,11 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
         this.phoneNumber = builder.phoneNumber;
         this.email = builder.email;
         this.password = builder.password;
-        this.role=builder.role;
+        this.role = builder.role;
     }
 
     public static Builder builder() {
         return new Builder();
-    }
-
-    public Role getRole() {
-        return role;
     }
 
     public Long getId() {
@@ -84,8 +82,20 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
         return address;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public Report getReport() {
+        return report;
+    }
+
+    public void setReport(Report report) {
+        this.report = report;
     }
 
 
@@ -128,7 +138,7 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
                 Objects.equals(address, customer.address) &&
                 Objects.equals(phoneNumber, customer.phoneNumber) &&
                 Objects.equals(email, customer.email) &&
-                Objects.equals(password, customer.password) ;
+                Objects.equals(password, customer.password);
     }
 
     @Override
@@ -164,7 +174,7 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
         private String phoneNumber;
         private String email;
         private String password;
-        private  Role role=Role.USER;
+        private Role role = Role.USER;
 
         public Builder withRole(Role role) {
             this.role = role;

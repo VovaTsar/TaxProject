@@ -20,14 +20,23 @@ public class AdminController {
         return adminService.register(customer);
     }
 
+    public Customer login(String email, String password) {
+        return adminService.login(email, password);
+    }
 
     public Customer findById(Long id) {
 
         return adminService.findById(id);
     }
 
-    public Customer login(String email, String password) {
-        return adminService.login(email, password);
+    public ArrayList<Customer> findAll() {
+
+        return adminService.findAll();
+    }
+
+    public void update(Customer customer) {
+
+        adminService.update(customer);
     }
 
     public Customer deleteById(Long id) {
@@ -36,36 +45,4 @@ public class AdminController {
     }
 
 
-    public void update(Customer customer) {
-
-        adminService.update(customer);
-    }
-
-    public ArrayList<Customer> findAll() {
-
-        return adminService.findAll();
-    }
-
-
-//    public ArrayList<Customer> findByDepartment(Long id) {
-//
-//        return adminService.findByDepartment(id);
-//    }
-//
-//
-//    public ArrayList<Customer> findByYear(int year) {
-//
-//        return adminService.findByYear(year);
-//    }
-//
-//
-//    public ArrayList<Customer> findByGroup(String group) {
-//
-//        return adminService.findByGroup(group);
-//    }
-//
-//
-//    public ArrayList<Customer> findByDepartmentAndCourse(Long id, int course) {
-//        return adminService.findByDepartmentAndCourse(id, course);
-//    }
 }

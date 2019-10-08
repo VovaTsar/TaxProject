@@ -1,6 +1,6 @@
 package com.mytask.repository;
 
-import com.mytask.domain.order.Taxes;
+import com.mytask.domain.order.Tax;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -9,38 +9,38 @@ import java.util.Map;
 import java.util.Optional;
 
 @Repository
-public class OrderTaxRepositoryImpl implements OrderTaxRepository {
+public class TaxRepositoryImpl implements TaxRepository {
 
-    private Map<Long, Taxes> idToTaxes = new HashMap<>();
+    private Map<Long, Tax> idToTaxes = new HashMap<>();
     private static Long counter = 0L;
 
 
     @Override
-    public Taxes save(Taxes taxes) {
+    public Tax save(Tax tax) {
 
-        return idToTaxes.put(++counter, taxes);
+        return idToTaxes.put(++counter, tax);
     }
 
 
     @Override
-    public Optional<Taxes> findById(Long id) {
+    public Optional<Tax> findById(Long id) {
 
         return Optional.ofNullable(idToTaxes.get(id));
     }
 
     @Override
-    public ArrayList<Taxes> findAll() {
+    public ArrayList<Tax> findAll() {
         return new ArrayList<>(idToTaxes.values());
     }
 
 
     @Override
-    public void update(Taxes taxes) {
-        idToTaxes.replace(taxes.getId(), taxes);
+    public void update(Tax tax) {
+        idToTaxes.replace(tax.getId(), tax);
     }
 
     @Override
-    public Optional<Taxes> deleteById(Long id) {
+    public Optional<Tax> deleteById(Long id) {
 
         return Optional.ofNullable(idToTaxes.remove(id));
     }

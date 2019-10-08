@@ -67,36 +67,4 @@ public class UserServiceImpl implements UserService {
         throw new LoginRuntimeException("Password is not correct");
     }
 
-
-//    @Override
-//    public ArrayList<Customer> findByDepartment(Long id) {
-//        if (id < 0) {
-//            throw new IllegalArgumentException("id must be > 0");
-//        }
-//        return customerRepository.findByDepartment(id);
-//    }
-//
-//    @Override
-//    public ArrayList<Customer> findByYear(int year) {
-//        if (year < 1920) {
-//            throw new IllegalArgumentException("id must be > 0");
-//        }
-//        return customerRepository.findByYear(year);
-//    }
-//
-//    @Override
-//    public ArrayList<Customer> findByGroup(String group) {
-//        if (group == null) {
-//            throw new IllegalArgumentException("Group is null");
-//        }
-//        return customerRepository.findByGroup(group);
-//    }
-//
-//    @Override
-//    public ArrayList<Customer> findByDepartmentAndCourse(Long id, int course) {
-//        if (id < 0 || course > 6 || course < 0) {
-//            throw new IllegalArgumentException("Course must be in range 1 to 6 and Id must be >0");
-//        }
-//        return customerRepository.findByDepartmentAndCourse(id, course);
-//    }
 }

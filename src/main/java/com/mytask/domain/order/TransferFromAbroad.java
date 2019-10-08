@@ -1,7 +1,7 @@
 package com.mytask.domain.order;
 
-public class TransferFromAbroad extends Taxes {
-    public TransferFromAbroad(int amountOfTaxes, String currency, String taxRecipient) {
+public class TransferFromAbroad extends Tax {
+    public TransferFromAbroad(int amountOfTaxes, Currency currency, String taxRecipient) {
         super(amountOfTaxes, currency, taxRecipient);
     }
 

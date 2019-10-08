@@ -1,44 +1,44 @@
 package com.mytask.domain.order;
 
-import com.mytask.exeption.TaxActionWithNullRuntimeExeption;
+import com.mytask.exeption.TaxActionWithNullRuntimeException;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Report {
-    private ArrayList<Taxes> taxes;
+    private ArrayList<Tax> taxes;
 
     public Report() {
         taxes = new ArrayList<>();
     }
 
-    public Report(ArrayList<Taxes> taxes) {
+    public Report(ArrayList<Tax> taxes) {
         this.taxes = taxes;
     }
 
-    public void add(Taxes tax) {
+    public void add(Tax tax) {
         if (tax == null) {
-            throw new TaxActionWithNullRuntimeExeption("Add null to Taxes");
+            throw new TaxActionWithNullRuntimeException("Add null to Tax");
         }
         taxes.add(tax);
     }
 
-    public void remove(Taxes tax) {
+    public void remove(Tax tax) {
         if (tax == null) {
-            throw new TaxActionWithNullRuntimeExeption("Delete null to Taxes");
+            throw new TaxActionWithNullRuntimeException("Delete null to Tax");
         }
         taxes.remove(tax);
     }
 
     public int sumOfTaxes() {
         int sum = 0;
-        for (Taxes tax : taxes) {
+        for (Tax tax : taxes) {
             sum += tax.getAmountOfTaxes();
         }
         return sum;
     }
 
-    public ArrayList<Taxes> sortByAmountTaxes() {
+    public ArrayList<Tax> sortByAmountTaxes() {
         Collections.sort(taxes);
         return taxes;
     }

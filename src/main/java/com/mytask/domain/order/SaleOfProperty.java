@@ -1,7 +1,7 @@
 package com.mytask.domain.order;
 
-public class SaleOfProperty extends Taxes {
-    public SaleOfProperty(int amountOfTaxes, String currency, String taxRecipient) {
+public class SaleOfProperty extends Tax {
+    public SaleOfProperty(int amountOfTaxes, Currency currency, String taxRecipient) {
         super(amountOfTaxes, currency, taxRecipient);
     }
 

@@ -1,7 +1,9 @@
 package com.mytask.domain.order;
 
-public class AdditionalWork extends Taxes{
-    public AdditionalWork(int amountOfTaxes, String currency, String taxRecipient) {
+public class AdditionalWork extends Tax {
+
+
+    public AdditionalWork(int amountOfTaxes, Currency currency, String taxRecipient) {
         super(amountOfTaxes, currency, taxRecipient);
     }
 

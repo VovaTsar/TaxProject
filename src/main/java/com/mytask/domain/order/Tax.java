@@ -1,11 +1,11 @@
 package com.mytask.domain.order;
 
 
-import com.mytask.exeption.TaxesUncorrectedDataRuntimeException;
+import com.mytask.exeption.TaxUncorrectedDataRuntimeException;
 
 import java.util.Objects;
 
-public abstract class Taxes implements Comparable<Taxes> {
+public abstract class Tax implements Comparable<Tax> {
     protected final Long id;
     protected final int amountOfTaxes;
     protected final Currency currency;
@@ -13,9 +13,9 @@ public abstract class Taxes implements Comparable<Taxes> {
     protected static Long counter=0L;
 
 
-    public Taxes(int amountOfTaxes, Currency currency, String taxRecipient) {
+    public Tax(int amountOfTaxes, Currency currency, String taxRecipient) {
         if (amountOfTaxes < 0 || taxRecipient == null) {
-            throw new TaxesUncorrectedDataRuntimeException("Amount of taxes must be positive and tax recipient must be not null");
+            throw new TaxUncorrectedDataRuntimeException("Amount of taxes must be positive and tax recipient must be not null");
         }
         this.id=++counter;
         this.amountOfTaxes = amountOfTaxes;
@@ -48,10 +48,10 @@ public abstract class Taxes implements Comparable<Taxes> {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Taxes taxes = (Taxes) o;
-        return amountOfTaxes == taxes.amountOfTaxes &&
-                currency == taxes.currency &&
-                Objects.equals(taxRecipient, taxes.taxRecipient);
+        Tax tax = (Tax) o;
+        return amountOfTaxes == tax.amountOfTaxes &&
+                currency == tax.currency &&
+                Objects.equals(taxRecipient, tax.taxRecipient);
     }
 
     @Override
@@ -62,7 +62,7 @@ public abstract class Taxes implements Comparable<Taxes> {
     public abstract String toString();
 
     @Override
-    public int compareTo(Taxes o) {
+    public int compareTo(Tax o) {
         return this.amountOfTaxes - o.getAmountOfTaxes();
     }
 }

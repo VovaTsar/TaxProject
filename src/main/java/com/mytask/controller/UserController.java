@@ -22,17 +22,17 @@ public class UserController {
         return userService.register(customer);
     }
 
+    public Customer login(String email, String password) {
+
+        return userService.login(email, password);
+    }
+
 
     public Customer findById(Long id) {
 
         return userService.findById(id);
     }
 
-
-    public Customer login(String email, String password) {
-
-        return userService.login(email, password);
-    }
 
 
     public void update(Customer customer) {
@@ -41,25 +41,5 @@ public class UserController {
     }
 
 
-//    public ArrayList<Customer> findByDepartment(Long id) {
-//
-//        return userService.findByDepartment(id);
-//    }
-//
-//
-//    public ArrayList<Customer> findByYear(int year) {
-//
-//        return userService.findByYear(year);
-//    }
-//
-//
-//    public ArrayList<Customer> findByGroup(String group) {
-//
-//        return userService.findByGroup(group);
-//    }
-//
-//
-//    public ArrayList<Customer> findByDepartmentAndCourse(Long id, int course) {
-//        return userService.findByDepartmentAndCourse(id, course);
-//    }
+
 }
