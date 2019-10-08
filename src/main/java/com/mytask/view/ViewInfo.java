@@ -1,6 +1,6 @@
 package com.mytask.view;
 
-import com.mytask.controller.MainController;
+import com.mytask.controller.AdminController;
 import com.mytask.domain.Customer;
 import com.mytask.helper.utillity.Converter;
 import com.mytask.helper.sort.BubbleSort;
@@ -16,12 +16,12 @@ import java.util.*;
 @Component
 public class ViewInfo {
 
-    private MainController mainController;
+    private AdminController adminController;
     private ResourceBundle lang;
 
     @Autowired
-    public ViewInfo(MainController mainController) {
-        this.mainController = mainController;
+    public ViewInfo(AdminController adminController) {
+        this.adminController = adminController;
     }
 
     private Scanner in = new Scanner(System.in);
@@ -77,7 +77,7 @@ public class ViewInfo {
 
         switch (choice) {
             case 1:
-                printAllCustomers(BubbleSort.sort(mainController.findAll()));
+                printAllCustomers(BubbleSort.sort(adminController.findAll()));
                 break;
 
             case 2:
@@ -109,7 +109,7 @@ public class ViewInfo {
     }
 
     void printAllCustomers(ArrayList<Customer> customers) {
-        if (mainController.findAll().isEmpty())
+        if (adminController.findAll().isEmpty())
             System.out.println(lang.getString("noCustomerYet"));
         else {
             System.out.println("\n" + lang.getString("listCustomer"));
@@ -149,7 +149,7 @@ public class ViewInfo {
               //  .withCourse(course)
                 .withEmail(email)
                 .build();
-        mainController.register(customer);
+        adminController.register(customer);
         System.out.println(lang.getString("CustomerCreated") + "\n");
 
         menu();
@@ -162,7 +162,7 @@ public class ViewInfo {
 
     void sortCustomer() {
         System.out.println(lang.getString("usersAreSorted") + "\n");
-        printAllCustomers(BubbleSort.sort(mainController.findAll()));
+        printAllCustomers(BubbleSort.sort(adminController.findAll()));
     }
 
     private String writeFieldValidator(String nameField) {
@@ -182,7 +182,7 @@ public class ViewInfo {
         String email = writeFieldValidator("email");
         System.out.println(lang.getString("passwordCustomer"));
         String password = in.nextLine();
-        return mainController.login(email,password);
+        return adminController.login(email,password);
     }
     public void print(ArrayList<Customer> customers) {
         for (Customer customer : customers) {
@@ -196,7 +196,7 @@ public class ViewInfo {
 
     private Customer findById() {
         System.out.println(lang.getString("inputId"));
-        return mainController.findById(in.nextLong());
+        return adminController.findById(in.nextLong());
     }
 //
 //    private ArrayList<Customer> findByDepartment() {

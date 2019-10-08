@@ -2,17 +2,14 @@ package com.mytask.service;
 
 import com.mytask.domain.Customer;
 
-import java.util.ArrayList;
 
-
-public interface CustomerService {
+public interface UserService {
     Customer register(Customer customer);
 
     Customer findById(Long id);
 
     Customer login(String email, String password);
 
-    Customer deleteById(Long id);
 
 //    ArrayList<Customer> findByDepartment(Long id);
 //
@@ -21,8 +18,6 @@ public interface CustomerService {
 //    ArrayList<Customer> findByGroup(String group);
 //
 //    ArrayList<Customer> findByDepartmentAndCourse(Long id, int course);
-
-    ArrayList<Customer> findAll();
 
     void update(Customer customer);
 

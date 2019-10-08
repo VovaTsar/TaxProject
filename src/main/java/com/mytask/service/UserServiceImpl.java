@@ -1,9 +1,7 @@
 package com.mytask.service;
 
-
 import com.mytask.domain.Customer;
 import com.mytask.exeption.LoginRuntimeException;
-
 import com.mytask.exeption.UncorrectedIdRuntimeException;
 import com.mytask.exeption.UserNotExistRuntimeException;
 import com.mytask.helper.utillity.PasswordUtils;
@@ -11,16 +9,15 @@ import com.mytask.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
-public class CustomerServiceImpl implements CustomerService {
+public class UserServiceImpl implements UserService {
 
-    private CustomerRepository customerRepository;
+    protected CustomerRepository customerRepository;
 
     @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    public UserServiceImpl(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
@@ -40,16 +37,12 @@ public class CustomerServiceImpl implements CustomerService {
             throw new UncorrectedIdRuntimeException("Id must be positive");
         }
         Optional<Customer> userFindById = customerRepository.findById(id);
-        if (userFindById.isPresent()){
+        if (userFindById.isPresent()) {
             return userFindById.get();
         }
         throw new UncorrectedIdRuntimeException("Id must be correct");
     }
 
-    @Override
-    public ArrayList<Customer> findAll() {
-        return customerRepository.findAll();
-    }
 
     @Override
     public void update(Customer customer) {
@@ -72,17 +65,6 @@ public class CustomerServiceImpl implements CustomerService {
         throw new LoginRuntimeException("Password is not correct");
     }
 
-    @Override
-    public Customer deleteById(Long id) {
-        if (id < 0) {
-            throw new UncorrectedIdRuntimeException("Id must be positive");
-        }
-        Optional<Customer> studentDeleteById = customerRepository.deleteById(id);
-        if (studentDeleteById.isPresent()){
-            return studentDeleteById.get();
-        }
-        throw new UncorrectedIdRuntimeException("Id must be correct");
-    }
 
 //    @Override
 //    public ArrayList<Customer> findByDepartment(Long id) {

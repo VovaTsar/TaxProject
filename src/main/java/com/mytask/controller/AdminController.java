@@ -1,71 +1,71 @@
 package com.mytask.controller;
 
 import com.mytask.domain.Customer;
-import com.mytask.service.CustomerService;
+import com.mytask.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
 @Component
-public class MainController {
-    private CustomerService customerService;
+public class AdminController {
+    private AdminService adminService;
 
     @Autowired
-    public MainController(CustomerService customerService) {
-        this.customerService = customerService;
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
     }
 
     public Customer register(Customer customer) {
-        return customerService.register(customer);
+        return adminService.register(customer);
     }
 
 
     public Customer findById(Long id) {
 
-        return customerService.findById(id);
+        return adminService.findById(id);
     }
 
     public Customer login(String email, String password) {
-        return customerService.login(email, password);
+        return adminService.login(email, password);
     }
 
     public Customer deleteById(Long id) {
 
-        return customerService.deleteById(id);
+        return adminService.deleteById(id);
     }
 
 
     public void update(Customer customer) {
 
-        customerService.update(customer);
+        adminService.update(customer);
     }
 
     public ArrayList<Customer> findAll() {
 
-        return customerService.findAll();
+        return adminService.findAll();
     }
 
 
 //    public ArrayList<Customer> findByDepartment(Long id) {
 //
-//        return customerService.findByDepartment(id);
+//        return adminService.findByDepartment(id);
 //    }
 //
 //
 //    public ArrayList<Customer> findByYear(int year) {
 //
-//        return customerService.findByYear(year);
+//        return adminService.findByYear(year);
 //    }
 //
 //
 //    public ArrayList<Customer> findByGroup(String group) {
 //
-//        return customerService.findByGroup(group);
+//        return adminService.findByGroup(group);
 //    }
 //
 //
 //    public ArrayList<Customer> findByDepartmentAndCourse(Long id, int course) {
-//        return customerService.findByDepartmentAndCourse(id, course);
+//        return adminService.findByDepartmentAndCourse(id, course);
 //    }
 }

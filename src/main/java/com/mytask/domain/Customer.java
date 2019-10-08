@@ -14,6 +14,7 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
     private final String phoneNumber;
     private final String email;
     private final String password;
+    private final Role role;
     private static Long counter = 0L;
 
 
@@ -44,6 +45,7 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
         } else {
             this.id = builder.id;
         }
+
         this.name = builder.name;
         this.surname = builder.surname;
         this.birthday = builder.birthday;
@@ -51,10 +53,15 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
         this.phoneNumber = builder.phoneNumber;
         this.email = builder.email;
         this.password = builder.password;
+        this.role=builder.role;
     }
 
     public static Builder builder() {
         return new Builder();
+    }
+
+    public Role getRole() {
+        return role;
     }
 
     public Long getId() {
@@ -101,6 +108,7 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", role=" + role +
                 '}';
     }
 
@@ -142,6 +150,7 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
                 .withAddress(address)
                 .withPhoneNumber(phoneNumber)
                 .withEmail(email)
+                .withRole(role)
                 .build();
     }
 
@@ -154,6 +163,12 @@ public class Customer implements Comparable<Customer>, CustomerPrototype {
         private String phoneNumber;
         private String email;
         private String password;
+        private  Role role=Role.USER;
+
+        public Builder withRole(Role role) {
+            this.role = role;
+            return this;
+        }
 
         public Builder withId(Long id) {
             this.id = id;
