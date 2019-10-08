@@ -14,7 +14,7 @@ public interface CrudRepository<E, T> {
 
     void update(E user);
 
-    Optional<Customer> deleteById(T id);
+    Optional<E> deleteById(T id);
 
 
 }

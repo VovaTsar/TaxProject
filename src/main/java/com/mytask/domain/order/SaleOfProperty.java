@@ -1,12 +1,12 @@
 package com.mytask.domain.order;
 
-public class SaleOfProperty extends Taxes {
-    public SaleOfProperty(int amountOfTaxes, String currency, String taxRecipient) {
+public class SaleOfProperty extends Tax {
+    public SaleOfProperty(int amountOfTaxes, Currency currency, String taxRecipient) {
         super(amountOfTaxes, currency, taxRecipient);
     }
 
     @Override
     public String toString() {
-        return "SaleOfProperty{" + "amountOfTaxes=" + amountOfTaxes + ", currency=" + currency + ", taxRecipient=" + taxRecipient + '}';
+        return "SaleOfProperty{id: " + id + " amountOfTaxes=" + amountOfTaxes + ", currency=" + currency + ", taxRecipient=" + taxRecipient + '}';
     }
 }

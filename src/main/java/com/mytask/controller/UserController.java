@@ -1,10 +1,13 @@
 package com.mytask.controller;
 
 import com.mytask.domain.customer.Customer;
+import com.mytask.domain.order.Tax;
 import com.mytask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 
 @Component
 @Primary
@@ -18,48 +21,40 @@ public class UserController {
     }
 
     public Customer register(Customer customer) {
-
         return userService.register(customer);
     }
 
-
-    public Customer findById(Long id) {
-
-        return userService.findById(id);
-    }
-
-
     public Customer login(String email, String password) {
-
         return userService.login(email, password);
     }
 
 
-    public void update(Customer customer) {
-
-        userService.update(customer);
+    public Customer findById(Long id) {
+        return userService.findById(id);
     }
 
 
-//    public ArrayList<Customer> findByDepartment(Long id) {
-//
-//        return userService.findByDepartment(id);
-//    }
-//
-//
-//    public ArrayList<Customer> findByYear(int year) {
-//
-//        return userService.findByYear(year);
-//    }
-//
-//
-//    public ArrayList<Customer> findByGroup(String group) {
-//
-//        return userService.findByGroup(group);
-//    }
-//
-//
-//    public ArrayList<Customer> findByDepartmentAndCourse(Long id, int course) {
-//        return userService.findByDepartmentAndCourse(id, course);
-//    }
+    public void update(Customer customer) {
+        userService.update(customer);
+    }
+
+    public void addTax(Customer customer, Long idTax) {
+        userService.addTax(customer,  idTax);
+    }
+
+    public void deleteTax(Customer customer, Long idTax) {
+        userService.deleteTax(customer, idTax);
+    }
+
+    public  ArrayList<Tax> sortTax(Customer customer) {
+        return userService.sortTax(customer);
+    }
+
+    public int sumOfTaxes(Customer customer) {
+        return userService.sumOfTaxes(customer);
+    }
+    public ArrayList<Tax> findAllTaxes(Customer customer) {
+        return userService.findAllTaxes(customer);
+    }
+
 }

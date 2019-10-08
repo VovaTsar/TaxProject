@@ -1,6 +1,7 @@
 package com.mytask.controller;
 
 import com.mytask.domain.customer.Customer;
+import com.mytask.domain.order.Tax;
 import com.mytask.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,52 +21,44 @@ public class AdminController {
         return adminService.register(customer);
     }
 
-
-    public Customer findById(Long id) {
-
-        return adminService.findById(id);
-    }
-
     public Customer login(String email, String password) {
         return adminService.login(email, password);
     }
 
-    public Customer deleteById(Long id) {
+    public Customer findById(Long id) {
+        return adminService.findById(id);
+    }
 
+    public ArrayList<Customer> findAll() {
+        return adminService.findAll();
+    }
+
+    public void update(Customer customer) {
+        adminService.update(customer);
+    }
+
+    public void addTax(Customer customer, Long idTax) {
+        adminService.addTax(customer, idTax);
+    }
+
+    public Customer deleteById(Long id) {
         return adminService.deleteById(id);
     }
 
 
-    public void update(Customer customer) {
-
-        adminService.update(customer);
+    public void deleteTax(Customer customer, Long idTax) {
+        adminService.deleteTax(customer, idTax);
     }
 
-    public ArrayList<Customer> findAll() {
-
-        return adminService.findAll();
+    public ArrayList<Tax> sortTax(Customer customer) {
+        return adminService.sortTax(customer);
     }
 
+    public int sumOfTaxes(Customer customer) {
+        return adminService.sumOfTaxes(customer);
+    }
 
-//    public ArrayList<Customer> findByDepartment(Long id) {
-//
-//        return adminService.findByDepartment(id);
-//    }
-//
-//
-//    public ArrayList<Customer> findByYear(int year) {
-//
-//        return adminService.findByYear(year);
-//    }
-//
-//
-//    public ArrayList<Customer> findByGroup(String group) {
-//
-//        return adminService.findByGroup(group);
-//    }
-//
-//
-//    public ArrayList<Customer> findByDepartmentAndCourse(Long id, int course) {
-//        return adminService.findByDepartmentAndCourse(id, course);
-//    }
+    public ArrayList<Tax> findAllTaxes(Customer customer) {
+        return adminService.findAllTaxes(customer);
+    }
 }
