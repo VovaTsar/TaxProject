@@ -1,24 +1,31 @@
 package com.mytask.domain.order;
 
 
-
 import com.mytask.exeption.TaxesUncorrectedDataRuntimeException;
 
 import java.util.Objects;
 
 public abstract class Taxes implements Comparable<Taxes> {
+    protected final Long id;
     protected final int amountOfTaxes;
     protected final Currency currency;
     protected final String taxRecipient;
+    protected static Long counter=0L;
 
 
     public Taxes(int amountOfTaxes, Currency currency, String taxRecipient) {
-        if (amountOfTaxes<0||taxRecipient==null){
+        if (amountOfTaxes < 0 || taxRecipient == null) {
             throw new TaxesUncorrectedDataRuntimeException("Amount of taxes must be positive and tax recipient must be not null");
         }
+        this.id=++counter;
         this.amountOfTaxes = amountOfTaxes;
         this.currency = currency;
         this.taxRecipient = taxRecipient;
+
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public int getAmountOfTaxes() {
@@ -38,7 +45,7 @@ public abstract class Taxes implements Comparable<Taxes> {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()){
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
         Taxes taxes = (Taxes) o;
@@ -52,10 +59,10 @@ public abstract class Taxes implements Comparable<Taxes> {
         return Objects.hash(amountOfTaxes, currency, taxRecipient);
     }
 
-    public abstract  String toString();
+    public abstract String toString();
 
     @Override
     public int compareTo(Taxes o) {
-        return this.amountOfTaxes-o.getAmountOfTaxes();
+        return this.amountOfTaxes - o.getAmountOfTaxes();
     }
 }
