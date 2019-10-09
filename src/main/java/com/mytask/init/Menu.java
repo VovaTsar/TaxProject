@@ -4,7 +4,7 @@ package com.mytask.init;
 import com.mytask.domain.customer.Address;
 import com.mytask.domain.customer.Customer;
 import com.mytask.domain.customer.Role;
-import com.mytask.domain.order.*;
+import com.mytask.domain.order.impl.*;
 import com.mytask.service.TaxService;
 import com.mytask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

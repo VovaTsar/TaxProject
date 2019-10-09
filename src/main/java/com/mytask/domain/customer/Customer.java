@@ -1,6 +1,7 @@
 package com.mytask.domain.customer;
 
 import com.mytask.domain.order.Report;
+import com.mytask.util.prototype.CustomerPrototype;
 
 import java.time.LocalDate;
 import java.util.Comparator;

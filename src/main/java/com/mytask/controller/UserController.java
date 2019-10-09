@@ -39,20 +39,21 @@ public class UserController {
     }
 
     public void addTax(Customer customer, Long idTax) {
-        userService.addTax(customer,  idTax);
+        userService.addTax(customer, idTax);
     }
 
     public void deleteTax(Customer customer, Long idTax) {
         userService.deleteTax(customer, idTax);
     }
 
-    public  ArrayList<Tax> sortTax(Customer customer) {
+    public ArrayList<Tax> sortTax(Customer customer) {
         return userService.sortTax(customer);
     }
 
     public int sumOfTaxes(Customer customer) {
         return userService.sumOfTaxes(customer);
     }
+
     public ArrayList<Tax> findAllTaxes(Customer customer) {
         return userService.findAllTaxes(customer);
     }

@@ -1,5 +1,7 @@
 package com.mytask.domain.customer;
 
+import com.mytask.util.prototype.Prototype;
+
 import java.util.Objects;
 
 public class Address implements Prototype {
@@ -30,7 +32,7 @@ public class Address implements Prototype {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()){
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
         Address address = (Address) o;
@@ -56,6 +58,6 @@ public class Address implements Prototype {
     @Override
     public Prototype clone() {
 
-        return new Address(city,street,number);
+        return new Address(city, street, number);
     }
 }

@@ -1,6 +1,7 @@
 package com.mytask.domain.order;
 
 
+import com.mytask.domain.order.impl.Currency;
 import com.mytask.exeption.TaxUncorrectedDataRuntimeException;
 
 import java.util.Objects;
@@ -10,14 +11,14 @@ public abstract class Tax implements Comparable<Tax> {
     protected final int amountOfTaxes;
     protected final Currency currency;
     protected final String taxRecipient;
-    protected static Long counter=0L;
+    protected static Long counter = 0L;
 
 
     public Tax(int amountOfTaxes, Currency currency, String taxRecipient) {
         if (amountOfTaxes < 0 || taxRecipient == null) {
             throw new TaxUncorrectedDataRuntimeException("Amount of taxes must be positive and tax recipient must be not null");
         }
-        this.id=++counter;
+        this.id = ++counter;
         this.amountOfTaxes = amountOfTaxes;
         this.currency = currency;
         this.taxRecipient = taxRecipient;

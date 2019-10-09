@@ -6,16 +6,18 @@ import com.mytask.controller.UserController;
 import com.mytask.domain.customer.Customer;
 import com.mytask.domain.customer.Role;
 import com.mytask.domain.order.Tax;
-import com.mytask.helper.utillity.Converter;
-import com.mytask.helper.sort.BubbleSort;
-import com.mytask.helper.validator.ValidatorFactory;
+import com.mytask.util.localization.UTF8Converter;
+import com.mytask.util.sort.BubbleSort;
+import com.mytask.util.validator.ValidatorFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.Scanner;
 
 @Component
 public class ViewInfo {
@@ -54,9 +56,9 @@ public class ViewInfo {
 
         try {
             if (chooseLang == 1) {
-                language = ResourceBundle.getBundle("resources", new Locale("en"), new Converter());
+                language = ResourceBundle.getBundle("resources", new Locale("en"), new UTF8Converter());
             } else if (chooseLang == 2) {
-                language = ResourceBundle.getBundle("resources", new Locale("ua"), new Converter());
+                language = ResourceBundle.getBundle("resources", new Locale("ua"), new UTF8Converter());
             } else
                 chooseMenuLang();
         } catch (Exception e) {
@@ -124,7 +126,7 @@ public class ViewInfo {
                 deleteOwnTaxesUser();
                 break;
             case 6:
-                printAllTaxes( userController.sortTax(currentCustomer));
+                printAllTaxes(userController.sortTax(currentCustomer));
                 break;
             case 7:
                 System.out.println(userController.sumOfTaxes(currentCustomer));
@@ -137,6 +139,7 @@ public class ViewInfo {
         }
         menuUser();
     }
+
     private void deleteOwnTaxesUser() {
         System.out.println(language.getString("inputId"));
         Long id = in.nextLong();
@@ -148,7 +151,6 @@ public class ViewInfo {
         Long id = in.nextLong();
         userController.addTax(currentCustomer, id);
     }
-
 
 
     private void menuAdmin() {
@@ -200,7 +202,7 @@ public class ViewInfo {
                 deleteOwnTaxes();
                 break;
             case 9:
-               printAllTaxes( adminController.sortTax(currentCustomer));
+                printAllTaxes(adminController.sortTax(currentCustomer));
                 break;
             case 10:
                 System.out.println(adminController.sumOfTaxes(currentCustomer));
@@ -292,7 +294,7 @@ public class ViewInfo {
         System.out.println(language.getString("CustomerCreated") + "\n");
         currentCustomer = customer;
 
-menu();
+        menu();
     }
 
     LocalDate splitBirthday(String birthday) {
@@ -320,16 +322,6 @@ menu();
         String password = in.nextLine();
         currentCustomer = userController.login(email, password);
         menu();
-    }
-
-    public void print(ArrayList<Customer> customers) {
-        for (Customer customer : customers) {
-            print(customer);
-        }
-    }
-
-    public void print(Customer Customers) {
-        System.out.println(Customers);
     }
 
 
