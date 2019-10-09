@@ -32,7 +32,7 @@ public class Menu {
                 .withBirthday(LocalDate.of(1999, 6, 11))
                 .withPassword("12345")
                 .withAddress(new Address("Kyiv", "WWW", 7))
-                .withPhoneNumber("3807341345")
+                .withPhoneNumber("380734134513")
                 .withEmail("vova@gmail.com")
                 .withRole(Role.ADMIN)
                 .build();
@@ -43,7 +43,7 @@ public class Menu {
                 .withBirthday(LocalDate.of(1999, 1, 13))
                 .withPassword("12345")
                 .withAddress(new Address("Kyiv", "WWW", 8))
-                .withPhoneNumber("38043545345")
+                .withPhoneNumber("380435453415")
                 .withEmail("vania@gmail.com")
 
                 .build();
@@ -54,7 +54,7 @@ public class Menu {
                 .withBirthday(LocalDate.of(1999, 1, 13))
                 .withPassword("12345")
                 .withAddress(new Address("Kyiv", "WWW", 8))
-                .withPhoneNumber("38063355345")
+                .withPhoneNumber("380633553451")
                 .withEmail("vasyl@gmail.com")
                 .build();
         userService.register(vova);

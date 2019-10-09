@@ -2,11 +2,9 @@ package com.mytask.service;
 
 import com.mytask.domain.customer.Customer;
 import com.mytask.domain.order.Tax;
-import com.mytask.exeption.LoginRuntimeException;
-import com.mytask.exeption.TaxNotExistRuntimeException;
-import com.mytask.exeption.UncorrectedIdRuntimeException;
-import com.mytask.exeption.CustomerNotExistRuntimeException;
+import com.mytask.exeption.*;
 import com.mytask.helper.utillity.PasswordUtils;
+import com.mytask.helper.validator.impl.UserValidator;
 import com.mytask.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -21,17 +19,22 @@ public class UserServiceImpl implements UserService {
 
     protected CustomerRepository customerRepository;
     private TaxService taxService;
+    private UserValidator userValidator;
 
     @Autowired
-    public UserServiceImpl(CustomerRepository customerRepository, TaxService taxService) {
+    public UserServiceImpl(CustomerRepository customerRepository, TaxService taxService, UserValidator userValidator) {
         this.customerRepository = customerRepository;
         this.taxService = taxService;
+        this.userValidator=userValidator;
     }
 
     @Override
     public Customer register(Customer customer) {
         if (customer == null) {
             throw new CustomerNotExistRuntimeException("Customer is not exist");
+        }
+        if(!userValidator.validate(customer)){
+            throw new UserNotValidateRuntimeException("Customer has not validate data");
         }
         String encodePassword = PasswordUtils.generateSecurePassword(customer.getPassword());
         Customer customerWithEncode = (Customer) customer.clone(encodePassword);
@@ -71,6 +74,9 @@ public class UserServiceImpl implements UserService {
         if (customer == null) {
             throw new CustomerNotExistRuntimeException("Customer is not exist");
         }
+        if(!userValidator.validate(customer)){
+            throw new UserNotValidateRuntimeException("Customer has not validate data");
+        }
 
         customerRepository.update(customer);
     }
@@ -80,6 +86,9 @@ public class UserServiceImpl implements UserService {
         if (customer == null) {
             throw new CustomerNotExistRuntimeException("Customer is not exist");
         }
+        if(!userValidator.validate(customer)){
+            throw new UserNotValidateRuntimeException("Customer has not validate data");
+        }
         return customer.getReport().getTaxes();
     }
 
@@ -87,6 +96,9 @@ public class UserServiceImpl implements UserService {
     public void addTax(Customer customer, Long idTax) {
         if (customer == null) {
             throw new CustomerNotExistRuntimeException("Customer is not exist");
+        }
+        if(!userValidator.validate(customer)){
+            throw new UserNotValidateRuntimeException("Customer hasn't validate data");
         }
         Tax tax = taxService.findById(idTax);
         customer.getReport().add(tax);
@@ -98,6 +110,9 @@ public class UserServiceImpl implements UserService {
         if (customer == null) {
             throw new CustomerNotExistRuntimeException("Customer is not exist");
         }
+        if(!userValidator.validate(customer)){
+            throw new UserNotValidateRuntimeException("Customer has not validate data");
+        }
         Tax tax = taxService.findById(idTax);
         customer.getReport().remove(tax);
         update(customer);
@@ -108,6 +123,9 @@ public class UserServiceImpl implements UserService {
         if (customer == null) {
             throw new CustomerNotExistRuntimeException("Customer is not exist");
         }
+        if(!userValidator.validate(customer)){
+            throw new UserNotValidateRuntimeException("Customer has not validate data");
+        }
 
         return customer.getReport().sortByAmountTaxes();
     }
@@ -117,7 +135,9 @@ public class UserServiceImpl implements UserService {
         if (customer == null) {
             throw new CustomerNotExistRuntimeException("Customer is not exist");
         }
-
+        if(!userValidator.validate(customer)){
+            throw new UserNotValidateRuntimeException("Customer has not validate data");
+        }
         return customer.getReport().sumOfTaxes();
     }
 
