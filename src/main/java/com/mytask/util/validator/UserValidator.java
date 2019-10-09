@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserValidator {
-    private static final Logger logger = Logger.getLogger(UserValidator.class);
+    private static final Logger LOGGER = Logger.getLogger(UserValidator.class);
     private EmailValidator emailValidator;
     private NameValidator nameValidator;
     private PhoneValidator phoneValidator;
@@ -27,15 +27,15 @@ public class UserValidator {
     }
 
     public boolean validate(Customer customer) {
-        logger.info("Validate UserValidator ");
+        LOGGER.info("Validate UserValidator ");
         boolean validate = emailValidator.validate(customer.getEmail()) &&
                 nameValidator.validate(customer.getName()) &&
                 phoneValidator.validate(customer.getPhoneNumber()) &&
                 surnameValidator.validate(customer.getSurname());
         if (validate) {
-            logger.info("Customer validate successful");
+            LOGGER.info("Customer validate successful");
         } else {
-            logger.error("UserValidator error");
+            LOGGER.error("UserValidator error");
 
         }
         return validate;
