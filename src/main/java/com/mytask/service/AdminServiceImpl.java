@@ -2,6 +2,7 @@ package com.mytask.service;
 
 import com.mytask.domain.customer.Customer;
 import com.mytask.exeption.UncorrectedIdRuntimeException;
+import com.mytask.helper.validator.impl.UserValidator;
 import com.mytask.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,8 @@ import java.util.Optional;
 public class AdminServiceImpl extends UserServiceImpl implements AdminService {
 
     @Autowired
-    public AdminServiceImpl(CustomerRepository customerRepository,TaxService taxService) {
-        super(customerRepository,taxService);
+    public AdminServiceImpl(CustomerRepository customerRepository, TaxService taxService, UserValidator userValidator) {
+        super(customerRepository,taxService,userValidator);
     }
 
     @Override
