@@ -8,6 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.stereotype.Component;
 
 @Component
+
 public class ConsoleApplication {
     Menu menu;
     ViewInfo viewInfo;
@@ -19,6 +20,7 @@ public class ConsoleApplication {
     }
 
     public static void main(String[] s) {
+
         ApplicationContext ctx = new AnnotationConfigApplicationContext("com.mytask");
         ConsoleApplication main = ctx.getBean(ConsoleApplication.class);
         main.menu.run();

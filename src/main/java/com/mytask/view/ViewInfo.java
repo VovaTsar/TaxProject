@@ -6,6 +6,7 @@ import com.mytask.controller.UserController;
 import com.mytask.domain.customer.Customer;
 import com.mytask.domain.customer.Role;
 import com.mytask.domain.order.Tax;
+import com.mytask.exeption.MyRuntimeException;
 import com.mytask.util.localization.UTF8Converter;
 import com.mytask.util.sort.BubbleSort;
 import com.mytask.util.validator.ValidatorFactory;
@@ -53,7 +54,6 @@ public class ViewInfo {
     }
 
     private void chooseLang(int chooseLang) {
-
         try {
             if (chooseLang == 1) {
                 language = ResourceBundle.getBundle("resources", new Locale("en"), new UTF8Converter());
@@ -61,22 +61,26 @@ public class ViewInfo {
                 language = ResourceBundle.getBundle("resources", new Locale("ua"), new UTF8Converter());
             } else
                 chooseMenuLang();
-        } catch (Exception e) {
-            throw new IllegalArgumentException(language.getString("uncorrectedArgument"));
+        } catch (RuntimeException e) {
+            chooseLang(chooseLang);
         }
         loginOrRegister();
     }
 
     private void loginOrRegister() {
-        System.out.println("1 - " + language.getString("registration"));
-        System.out.println("2 - " + language.getString("login"));
-        int loginOrRegister = in.nextInt();
+        try {
+            System.out.println("1 - " + language.getString("registration"));
+            System.out.println("2 - " + language.getString("login"));
+            int loginOrRegister = in.nextInt();
 
-        if (loginOrRegister == 1) {
-            register();
-        } else if (loginOrRegister == 2) {
-            login();
-        } else {
+            if (loginOrRegister == 1) {
+                register();
+            } else if (loginOrRegister == 2) {
+                login();
+            } else {
+                loginOrRegister();
+            }
+        } catch (MyRuntimeException e) {
             loginOrRegister();
         }
     }
@@ -90,54 +94,57 @@ public class ViewInfo {
     }
 
     public void menuUser() {
-        System.out.println(language.getString("menu"));
-
-        System.out.println("1 - " + language.getString("currentId"));
-        System.out.println("2 - " + language.getString("viewAllTaxes"));
-        System.out.println("3 - " + language.getString("viewOwnTaxes"));
-        System.out.println("4 - " + language.getString("addOwnTaxes"));
-        System.out.println("5 - " + language.getString("deleteOwnTaxes"));
-        System.out.println("6 - " + language.getString("sortOwnTaxes"));
-        System.out.println("7 - " + language.getString("sumOwnTaxes"));
-        System.out.println("8 - " + language.getString("chooseLanguage"));
-        System.out.println("9 - " + language.getString("exit"));
-
-        int choice;
         try {
-            choice = in.nextInt();
-        } catch (Exception e) {
-            throw new IllegalArgumentException(language.getString("uncorrectedArgument"));
-        }
+            System.out.println(language.getString("menu"));
+            System.out.println("1 - " + language.getString("currentId"));
+            System.out.println("2 - " + language.getString("viewAllTaxes"));
+            System.out.println("3 - " + language.getString("viewOwnTaxes"));
+            System.out.println("4 - " + language.getString("addOwnTaxes"));
+            System.out.println("5 - " + language.getString("deleteOwnTaxes"));
+            System.out.println("6 - " + language.getString("sortOwnTaxes"));
+            System.out.println("7 - " + language.getString("sumOwnTaxes"));
+            System.out.println("8 - " + language.getString("chooseLanguage"));
+            System.out.println("9 - " + language.getString("exit"));
 
-        switch (choice) {
-            case 1:
-                System.out.println(userController.findById(currentCustomer.getId()));
-                break;
-            case 2:
-                printAllTaxes(taxController.findAll());
-                break;
-            case 3:
-                printAllTaxes(userController.findAllTaxes(currentCustomer));
-                break;
-            case 4:
-                addOwnTaxesUser();
-                break;
-            case 5:
-                deleteOwnTaxesUser();
-                break;
-            case 6:
-                printAllTaxes(userController.sortTax(currentCustomer));
-                break;
-            case 7:
-                System.out.println(userController.sumOfTaxes(currentCustomer));
-                break;
-            case 8:
-                chooseMenuLang();
-                break;
-            case 9:
-                System.exit(0);
+            int choice;
+            try {
+                choice = in.nextInt();
+            } catch (Exception e) {
+                throw new IllegalArgumentException(language.getString("uncorrectedArgument"));
+            }
+
+            switch (choice) {
+                case 1:
+                    System.out.println(userController.findById(currentCustomer.getId()));
+                    break;
+                case 2:
+                    printAllTaxes(taxController.findAll());
+                    break;
+                case 3:
+                    printAllTaxes(userController.findAllTaxes(currentCustomer));
+                    break;
+                case 4:
+                    addOwnTaxesUser();
+                    break;
+                case 5:
+                    deleteOwnTaxesUser();
+                    break;
+                case 6:
+                    printAllTaxes(userController.sortTax(currentCustomer));
+                    break;
+                case 7:
+                    System.out.println(userController.sumOfTaxes(currentCustomer));
+                    break;
+                case 8:
+                    chooseMenuLang();
+                    break;
+                case 9:
+                    System.exit(0);
+            }
+            menuUser();
+        } catch (MyRuntimeException e) {
+            menuUser();
         }
-        menuUser();
     }
 
     private void deleteOwnTaxesUser() {
@@ -154,66 +161,70 @@ public class ViewInfo {
 
 
     private void menuAdmin() {
-        System.out.println(language.getString("menu"));
-        System.out.println("1 - " + language.getString("viewCustomer"));
-        System.out.println("2 - " + language.getString("sortCustomer"));
-        System.out.println("3 - " + language.getString("inputIdUser"));
-        System.out.println("4 - " + language.getString("viewAllTaxes"));
-        System.out.println("5 - " + language.getString("deleteTaxes"));
-        System.out.println("6 - " + language.getString("viewOwnTaxes"));
-        System.out.println("7 - " + language.getString("addOwnTaxes"));
-        System.out.println("8 - " + language.getString("deleteOwnTaxes"));
-        System.out.println("9 - " + language.getString("sortOwnTaxes"));
-        System.out.println("10 - " + language.getString("sumOwnTaxes"));
-        System.out.println("11 - " + language.getString("chooseLanguage"));
-        System.out.println("12 - " + language.getString("exit"));
-
-        int choice;
         try {
-            choice = in.nextInt();
-        } catch (Exception e) {
-            throw new IllegalArgumentException(language.getString("uncorrectedArgument"));
-        }
+            System.out.println(language.getString("menu"));
+            System.out.println("1 - " + language.getString("viewCustomer"));
+            System.out.println("2 - " + language.getString("sortCustomer"));
+            System.out.println("3 - " + language.getString("inputIdUser"));
+            System.out.println("4 - " + language.getString("viewAllTaxes"));
+            System.out.println("5 - " + language.getString("deleteTaxes"));
+            System.out.println("6 - " + language.getString("viewOwnTaxes"));
+            System.out.println("7 - " + language.getString("addOwnTaxes"));
+            System.out.println("8 - " + language.getString("deleteOwnTaxes"));
+            System.out.println("9 - " + language.getString("sortOwnTaxes"));
+            System.out.println("10 - " + language.getString("sumOwnTaxes"));
+            System.out.println("11 - " + language.getString("chooseLanguage"));
+            System.out.println("12 - " + language.getString("exit"));
 
-        switch (choice) {
+            int choice;
+            try {
+                choice = in.nextInt();
+            } catch (Exception e) {
+                throw new IllegalArgumentException(language.getString("uncorrectedArgument"));
+            }
 
-            case 1:
-                printAllCustomers(BubbleSort.sort(adminController.findAll()));
-                break;
-            case 2:
-                sortCustomer();
-                break;
-            case 3:
-                System.out.println(findById());
-                break;
-            case 4:
-                printAllTaxes(taxController.findAll());
-                break;
-            case 5:
-                deleteTax();
-                break;
-            case 6:
-                printAllTaxes(adminController.findAllTaxes(currentCustomer));
-                break;
-            case 7:
-                addOwnTaxes();
-                break;
-            case 8:
-                deleteOwnTaxes();
-                break;
-            case 9:
-                printAllTaxes(adminController.sortTax(currentCustomer));
-                break;
-            case 10:
-                System.out.println(adminController.sumOfTaxes(currentCustomer));
-                break;
-            case 11:
-                chooseMenuLang();
-                break;
-            case 12:
-                System.exit(0);
+            switch (choice) {
+
+                case 1:
+                    printAllCustomers(BubbleSort.sort(adminController.findAll()));
+                    break;
+                case 2:
+                    sortCustomer();
+                    break;
+                case 3:
+                    System.out.println(findById());
+                    break;
+                case 4:
+                    printAllTaxes(taxController.findAll());
+                    break;
+                case 5:
+                    deleteTax();
+                    break;
+                case 6:
+                    printAllTaxes(adminController.findAllTaxes(currentCustomer));
+                    break;
+                case 7:
+                    addOwnTaxes();
+                    break;
+                case 8:
+                    deleteOwnTaxes();
+                    break;
+                case 9:
+                    printAllTaxes(adminController.sortTax(currentCustomer));
+                    break;
+                case 10:
+                    System.out.println(adminController.sumOfTaxes(currentCustomer));
+                    break;
+                case 11:
+                    chooseMenuLang();
+                    break;
+                case 12:
+                    System.exit(0);
+            }
+            menuAdmin();
+        } catch (MyRuntimeException e) {
+            menuAdmin();
         }
-        menuAdmin();
     }
 
     private void deleteOwnTaxes() {
@@ -272,29 +283,33 @@ public class ViewInfo {
 
     void register() {
 
-        String name = writeFieldValidator("name");
-        String surname = writeFieldValidator("surname");
-        String email = writeFieldValidator("email");
-        String phoneNumber = writeFieldValidator("phoneNumber");
-        String birthday = writeFieldValidator("date");
-        System.out.println(language.getString("passwordCustomer"));
-        String password = in.nextLine();
+        try {
+            String name = writeFieldValidator("name");
+            String surname = writeFieldValidator("surname");
+            String email = writeFieldValidator("email");
+            String phoneNumber = writeFieldValidator("phoneNumber");
+            String birthday = writeFieldValidator("date");
+            System.out.println(language.getString("passwordCustomer"));
+            String password = in.nextLine();
 
 
-        Customer customer = Customer.builder()
-                .withName(name)
-                .withSurname(surname)
-                .withBirthday(splitBirthday(birthday))
-                .withPhoneNumber(phoneNumber)
-                .withPassword(password)
-                .withEmail(email)
-                .build();
+            Customer customer = Customer.builder()
+                    .withName(name)
+                    .withSurname(surname)
+                    .withBirthday(splitBirthday(birthday))
+                    .withPhoneNumber(phoneNumber)
+                    .withPassword(password)
+                    .withEmail(email)
+                    .build();
 
-        userController.register(customer);
-        System.out.println(language.getString("CustomerCreated") + "\n");
-        currentCustomer = customer;
+            userController.register(customer);
+            System.out.println(language.getString("CustomerCreated") + "\n");
+            currentCustomer = customer;
 
-        menu();
+            menu();
+        } catch (MyRuntimeException e) {
+            register();
+        }
     }
 
     LocalDate splitBirthday(String birthday) {
@@ -316,12 +331,18 @@ public class ViewInfo {
     }
 
     private void login() {
-        System.out.println("");
-        String email = writeFieldValidator("email");
-        System.out.println(language.getString("passwordCustomer"));
-        String password = in.nextLine();
-        currentCustomer = userController.login(email, password);
-        menu();
+
+
+        try {
+            System.out.println("");
+            String email = writeFieldValidator("email");
+            System.out.println(language.getString("passwordCustomer"));
+            String password = in.nextLine();
+            currentCustomer = userController.login(email, password);
+            menu();
+        } catch (MyRuntimeException e) {
+            login();
+        }
     }
 
 

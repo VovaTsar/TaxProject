@@ -16,7 +16,7 @@ public abstract class Tax implements Comparable<Tax> {
 
     public Tax(int amountOfTaxes, Currency currency, String taxRecipient) {
         if (amountOfTaxes < 0 || taxRecipient == null) {
-            throw new TaxUncorrectedDataRuntimeException("Amount of taxes must be positive and tax recipient must be not null");
+             new TaxUncorrectedDataRuntimeException("Amount of taxes must be positive and tax recipient must be not null");
         }
         this.id = ++counter;
         this.amountOfTaxes = amountOfTaxes;
